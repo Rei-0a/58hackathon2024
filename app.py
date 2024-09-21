@@ -73,11 +73,8 @@ def index():
     
     # インターンの情報を追加
     for intern in interns:
-<<<<<<< HEAD
-        combined.append((intern.title, intern.due_date, 'intern',intern.id))  # インターンの情報をタプルとして追加
-=======
+
         combined.append((intern.title, intern.end_date, 'intern',intern.id))  # インターンの情報をタプルとして追加
->>>>>>> feature/43
 
     # 日付でソート（タスクの締切日とインターンの開始日を比較）
     combined.sort(key=lambda x: (x[1] is None, x[1]))  # Noneを最後にし、日付でソート
@@ -89,7 +86,7 @@ def show_task(id):
     type = request.args.get('type')
 
     # idのタスクだけ取る
-<<<<<<< HEAD
+
     #tasks = Task.query.order_by(Task.due_date).all()
     task = Task.query.get(id)
     #if type == 'task':
@@ -98,12 +95,12 @@ def show_task(id):
     #elif type == 'intern':
     #    task = Intern.query.get(id)
     #    return render_template('intern_popup.html', task=task)
-=======
+
     #tasks = Task.query.order_by(Task.end_date).all() 
     
     task = Task.query.get(id)  # 個別にとる
     
->>>>>>> feature/43
+
     # show page
     return render_template('task_popup.html', task=task)
 
