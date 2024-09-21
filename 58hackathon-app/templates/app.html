@@ -5,17 +5,38 @@
     <title>ToDoアプリ</title>
 </head>
 <body>
-    <h1>ToDoアプリ</h1>
-    <form action="/add" method="POST">
+    <h1>Taskアプリ</h1>
+    <form action="/add_task" method="POST">
         <input type="text" name="title" placeholder="タスク名" required>
+        <input type="datetime-local" name="due_date" required>
+        <button type="submit">追加</button>
+    </form>
+
+    <h2>インターンを追加</h2>
+    <form action="/add_intern" method="post">
+        <input type="text" name="title" placeholder="インターンの名前を入力"required>
         <input type="datetime-local" name="due_date" required>
         <button type="submit">追加</button>
     </form>
 
     <h2>タスク一覧</h2>
     <ul>
-        {% for task in tasks %}
-            <li><a href="/tasks/{{task.id}}">{{ task.title }} - {{ task.due_date.strftime('%Y-%m-%d %H:%M') }}</a></li>
+        {% for item in combined %}
+            {% if item[2] == 'task' %}
+                <li>
+                    タスク: {{ item[0] }} - 締切: {{ item[1] }}
+                    <form method='POST' action="/delete/task/{{ item[3] }}">
+                        <button type="submit">Delete</button>
+                    </form>
+                </li>
+            {% else %}
+                <li>
+                    インターン: {{ item[0] }} - 開始日: {{ item[1] }}
+                    <form method='POST' action="/delete/intern/{{ item[3] }}">
+                        <button type="submit">Delete</button>
+                    </form>
+                </li>
+            {% endif %}
         {% endfor %}
     </ul>
 </body>
