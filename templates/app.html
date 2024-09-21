@@ -56,7 +56,7 @@
                 <input type="datetime-local" name="start_date" required>
                 <input type="datetime-local" name="end_date" required>
                 <input type="text" name="body" placeholder="メモ" required>
-                <input type="text" name="pace" placeholder="場所" required>
+                <input type="text" name="place" placeholder="場所" required>
                 <button type="submit">追加</button>
             </form>
 
@@ -66,7 +66,7 @@
                 <input type="datetime-local" name="start_date" required>
                 <input type="datetime-local" name="end_date" required>
                 <input type="text" name="body" placeholder="メモ" required>
-                <input type="text" name="pace" placeholder="場所" required>
+                <input type="text" name="place" placeholder="場所" required>
                 <button type="submit">追加</button>
             </form>
 
@@ -76,7 +76,7 @@
                 <input type="datetime-local" name="start_date" required>
                 <input type="datetime-local" name="end_date" required>
                 <input type="text" name="body" placeholder="メモ" required>
-                <input type="text" name="pace" placeholder="場所" required>
+                <input type="text" name="place" placeholder="場所" required>
                 <button type="submit">追加</button>
             </form>
         </div>
@@ -114,7 +114,7 @@
                     </div>
                     <div class="task-title">
                         <input type="checkbox" name="task_completed" id="task_{{ item[3] }}">
-                        <span>タスク: {{ item[0] }}</span>
+                        <a href = "/tasks/{{item[3]}}">タスク: {{ item[0] }}</a>
                         <form method='POST' action="/delete/task/{{ item[3] }}">
                             <button type="submit">Delete</button>
                         </form>
@@ -127,7 +127,7 @@
                     </div>
                     <div class="task-title">
                         <input type="checkbox" name="task_completed" id="task_{{ item[3] }}">
-                        <span>面接: {{ item[0] }}</span>
+                        <a href = "/tasks/{{item[3]}}">面接: {{ item[0] }}</a>
                         <form method='POST' action="/delete/interview/{{ item[3] }}">
                             <button type="submit">Delete</button>
                         </form>
@@ -140,20 +140,20 @@
                     </div>
                     <div class="task-title">
                         <input type="checkbox" name="task_completed" id="task_{{ item[3] }}">
-                        <span>説明会: {{ item[0] }}</span>
+                        <a href = "/tasks/{{item[3]}}">説明会: {{ item[0] }}</a>
                         <form method='POST' action="/delete/meeting/{{ item[3] }}">
                             <button type="submit">Delete</button>
                         </form>
                     </div>
                 </li>
                 {% elif item[2] == 'intern' %}
-                <li class="tasks"></li>
-                    <div class="task-datetime">
+                <li class="interns"></li>
+                    <div class="intern-datetime">
                         締切: {{ item[1] }}
                     </div>
                     <div class="task-title">
-                        <input type="checkbox" name="task_completed" id="task_{{ item[3] }}">
-                        <span>インターン: {{ item[0] }}</span>
+                        <input type="checkbox" name="interns_completed" id="interns_{{ item[3] }}">
+                        <a href = "/intern/{{item[3]}}">インターン: {{ item[0] }}</a>
                         <form method='POST' action="/delete/intern/{{ item[3] }}">
                             <button type="submit">Delete</button>
                         </form>
