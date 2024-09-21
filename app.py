@@ -126,8 +126,8 @@ def task_edit(id):
 
 @app.route('/intern/<id>/edit')  #internの編集
 def intern_edit(id):
-    task = Intern.query.get(id)
-    return render_template('intern_edit.html', task=task)
+    intern = Intern.query.get(id)
+    return render_template('intern_edit.html', intern=intern)
 
 @app.route('/add_task', methods=['POST'])
 def add_task():
@@ -166,11 +166,14 @@ def add_meeting():
 
 @app.route('/add_intern', methods=['POST'])
 def add_intern():
-    title = request.form['title']
-    start_date = datetime.fromisoformat(request.form['start_date'])
-    end_date = datetime.fromisoformat(request.form['end_date'])
-    body = request.form['body']
-    place = request.form['place']
+    title = request.form.get('title')
+    start_date = request.form.get('start_date')
+    end_date = request.form.get('end_date')
+    body = request.form.get('body')
+    place = request.form.get('place')
+    # 文字列をdatetimeオブジェクトに変換
+    start_date = datetime.fromisoformat(start_date)
+    end_date = datetime.fromisoformat(end_date)
     new_intern = Intern(title=title, start_date=start_date, end_date=end_date, body=body, place=place)
     db.session.add(new_intern)
     db.session.commit()
