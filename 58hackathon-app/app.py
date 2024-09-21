@@ -10,7 +10,31 @@ db = SQLAlchemy(app)
 class Task(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(200), nullable=False)
-    due_date = db.Column(db.DateTime, nullable=False)
+    start_date = db.Column(db.DateTime, nullable=False)
+    end_date = db.Column(db.DateTime, nullable=False)
+    body = db.Column(db.String(500), nullable=False)
+
+    def __repr__(self):
+        return f'<Task {self.title}>'
+
+class Interview(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(200), nullable=False)
+    start_date = db.Column(db.DateTime, nullable=False)
+    end_date = db.Column(db.DateTime, nullable=False)
+    body = db.Column(db.String(500), nullable=False)
+    place = db.Column(db.String(100), nullable=False)
+
+    def __repr__(self):
+        return f'<Task {self.title}>'
+
+class Meeting(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(200), nullable=False)
+    start_date = db.Column(db.DateTime, nullable=False)
+    end_date = db.Column(db.DateTime, nullable=False)
+    body = db.Column(db.String(500), nullable=False)
+    place = db.Column(db.String(100), nullable=False)
 
     def __repr__(self):
         return f'<Task {self.title}>'
@@ -18,7 +42,10 @@ class Task(db.Model):
 class Intern(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(200), nullable=False)
-    due_date = db.Column(db.DateTime, nullable=False)
+    start_date = db.Column(db.DateTime, nullable=False)
+    end_date = db.Column(db.DateTime, nullable=False)
+    body = db.Column(db.String(500), nullable=False)
+    place = db.Column(db.String(100), nullable=False)
 
     def __repr__(self):
         return f'<Intern {self.title}>'
@@ -29,27 +56,34 @@ with app.app_context():
 @app.route('/')
 def index():
     tasks = Task.query.all()  # タスクをすべて取得
+    interviews = Interview.query.all()
+    meetings = Meeting.query.all()
     interns = Intern.query.all()  # インターンをすべて取得
     combined = []
 
     # タスクの情報を追加
     for task in tasks:
-        combined.append((task.title, task.due_date, 'task',task.id))  # タスクの情報をタプルとして追加
+        combined.append((task.title, task.end_date, 'task',task.id))  # タスクの情報をタプルとして追加
 
+    for interview in interviews:
+        combined.append((interview.title, interview.end_date, 'interview',interview.id))
+
+    for meeting in meetings:
+        combined.append((meeting.title, meeting.end_date, 'meeting',meeting.id))
+    
     # インターンの情報を追加
     for intern in interns:
-        combined.append((intern.name, intern.start_date, 'intern',intern.id))  # インターンの情報をタプルとして追加
+        combined.append((intern.title, intern.end_date, 'intern',intern.id))  # インターンの情報をタプルとして追加
 
     # 日付でソート（タスクの締切日とインターンの開始日を比較）
     combined.sort(key=lambda x: (x[1] is None, x[1]))  # Noneを最後にし、日付でソート
 
     return render_template('app.html', combined=combined)
 
-<<<<<<< HEAD
 @app.route('/tasks/<id>')
 def show_task(id):
     # idのタスクだけ取る
-    #tasks = Task.query.order_by(Task.due_date).all() 
+    #tasks = Task.query.order_by(Task.end_date).all() 
     
     task = Task.query.get(id)  # 個別にとる
     
@@ -60,13 +94,37 @@ def show_task(id):
 def nextpage():
     return render_template('nextpage.html')
 
-=======
->>>>>>> feature/Konosuke
 @app.route('/add_task', methods=['POST'])
 def add_task():
     title = request.form['title']
-    due_date = datetime.fromisoformat(request.form['due_date'])
-    new_task = Task(title=title, due_date=due_date)
+    start_date = datetime.fromisoformat(request.form['start_date'])
+    end_date = datetime.fromisoformat(request.form['end_date'])
+    body = request.form['body']
+    new_task = Task(title=title, start_date=start_date, end_date=end_date, body=body)
+    db.session.add(new_task)
+    db.session.commit()
+    return redirect('/')
+
+@app.route('/add_interview', methods=['POST'])
+def add_interview():
+    title = request.form['title']
+    start_date = datetime.fromisoformat(request.form['start_date'])
+    end_date = datetime.fromisoformat(request.form['end_date'])
+    body = request.form['body']
+    place = request.form['place']
+    new_task = Task(title=title, start_date=start_date, end_date=end_date, body=body, place=place)
+    db.session.add(new_task)
+    db.session.commit()
+    return redirect('/')
+
+@app.route('/add_meeting', methods=['POST'])
+def add_meeting():
+    title = request.form['title']
+    start_date = datetime.fromisoformat(request.form['start_date'])
+    end_date = datetime.fromisoformat(request.form['end_date'])
+    body = request.form['body']
+    place = request.form['place']
+    new_task = Task(title=title, start_date=start_date, end_date=end_date, body=body, place=place)
     db.session.add(new_task)
     db.session.commit()
     return redirect('/')
@@ -74,8 +132,11 @@ def add_task():
 @app.route('/add_intern', methods=['POST'])
 def add_intern():
     title = request.form['title']
-    due_date = datetime.fromisoformat(request.form['due_date'])
-    new_intern = Task(title=title, due_date=due_date)
+    start_date = datetime.fromisoformat(request.form['start_date'])
+    end_date = datetime.fromisoformat(request.form['end_date'])
+    body = request.form['body']
+    place = request.form['place']
+    new_intern = Intern(title=title, start_date=start_date, end_date=end_date, body=body, place=place)
     db.session.add(new_intern)
     db.session.commit()
     return redirect('/')
@@ -88,6 +149,24 @@ def delete_task(task_id):
         db.session.commit()
         return redirect('/')
     return 'Task not found', 404 
+
+@app.route('/delete/interview/<int:interview_id>',methods=['POST'])
+def delete_interview(interview_id):
+    interview = Interview.query.get(interview_id)
+    if interview:  # オブジェクトが存在するかチェック
+        db.session.delete(interview)
+        db.session.commit()
+        return redirect('/')
+    return 'Interview not found', 404
+
+@app.route('/delete/meeting/<int:meeting_id>',methods=['POST'])
+def delete_meeting(meeting_id):
+    meeting = Meeting.query.get(meeting_id)
+    if meeting:  # オブジェクトが存在するかチェック
+        db.session.delete(meeting)
+        db.session.commit()
+        return redirect('/')
+    return 'Meeting not found', 404
 
 @app.route('/delete/intern/<int:intern_id>',methods=['POST'])
 def delete_intern(intern_id):
