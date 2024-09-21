@@ -23,6 +23,18 @@ def index():
     tasks = Task.query.order_by(Task.due_date).all()  # 日付順にソート
     return render_template('app.html', tasks=tasks)
 
+@app.route('/tasks/<id>')
+def show_task(id):
+    # idのタスクだけ取る
+    #tasks = Task.query.order_by(Task.due_date).all() 
+    
+    task = Task.query.get(id)  # 個別にとる
+    
+    # show page
+    return render_template('task_popup.html', task=task)
+
+@app.route('/edit')
+
 @app.route('/add', methods=['POST'])
 def add_task():
     title = request.form['title']
