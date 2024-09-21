@@ -4,7 +4,7 @@
     
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ボタン遷移</title>
+    <title>予定の詳細</title>
 
     <style>
         .entry-content {
@@ -54,9 +54,12 @@
     </div>  
 
 
-    <button onclick="location.href='edit.html'">編集</button>
+    <!--<button onclick="location.href='edit.html'">編集</button> -->
 
-
+    <!-- ボタンを押すと、/nextpageに飛ぶ -->
+    <form action="/nextpage" method="get">
+        <input type="submit" value='Edit'>
+    </form>
     
     
 

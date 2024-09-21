@@ -33,7 +33,9 @@ def show_task(id):
     # show page
     return render_template('task_popup.html', task=task)
 
-@app.route('/edit')
+@app.route('/nextpage/')
+def nextpage():
+    return render_template('nextpage.html')
 
 @app.route('/add', methods=['POST'])
 def add_task():
