@@ -40,16 +40,43 @@
                 <button type="button">予定</button>
                 <button type="button">ToDo</button>
             </div>
+
+            <h2>ESを追加</h2>
             <form action="/add_task" method="POST">
                 <input type="text" name="title" placeholder="タスク名" required>
-                <input type="datetime-local" name="due_date" required>
+                <input type="datetime-local" name="start_date" required>
+                <input type="datetime-local" name="end_date" required>
+                <input type="text" name="body" placeholder="メモ" required>
+                <button type="submit">追加</button>
+            </form>
+
+            <h2>面接を追加</h2>
+            <form action="/add_interview" method="POST"></form>
+                <input type="text" name="title" placeholder="タスク名" required>
+                <input type="datetime-local" name="start_date" required>
+                <input type="datetime-local" name="end_date" required>
+                <input type="text" name="body" placeholder="メモ" required>
+                <input type="text" name="pace" placeholder="場所" required>
+                <button type="submit">追加</button>
+            </form>
+
+            <h2>説明会を追加</h2>
+            <form action="/add_meeting" method="POST"></form>
+                <input type="text" name="title" placeholder="タスク名" required>
+                <input type="datetime-local" name="start_date" required>
+                <input type="datetime-local" name="end_date" required>
+                <input type="text" name="body" placeholder="メモ" required>
+                <input type="text" name="pace" placeholder="場所" required>
                 <button type="submit">追加</button>
             </form>
 
             <h2>インターンを追加</h2>
             <form action="/add_intern" method="post">
                 <input type="text" name="title" placeholder="インターンの名前を入力" required>
-                <input type="datetime-local" name="due_date" required>
+                <input type="datetime-local" name="start_date" required>
+                <input type="datetime-local" name="end_date" required>
+                <input type="text" name="body" placeholder="メモ" required>
+                <input type="text" name="pace" placeholder="場所" required>
                 <button type="submit">追加</button>
             </form>
         </div>
@@ -93,10 +120,36 @@
                         </form>
                     </div>
                 </li>
-                {% else %}
+                {% elif item[2] == 'interview' %}
                 <li class="tasks">
                     <div class="task-datetime">
-                        開始日: {{ item[1] }}
+                        締切: {{ item[1] }}
+                    </div>
+                    <div class="task-title">
+                        <input type="checkbox" name="task_completed" id="task_{{ item[3] }}">
+                        <span>面接: {{ item[0] }}</span>
+                        <form method='POST' action="/delete/interview/{{ item[3] }}">
+                            <button type="submit">Delete</button>
+                        </form>
+                    </div>
+                </li>
+                {% elif item[2] == 'meeting' %}
+                <li class="tasks"></li>
+                    <div class="task-datetime">
+                        締切: {{ item[1] }}
+                    </div>
+                    <div class="task-title">
+                        <input type="checkbox" name="task_completed" id="task_{{ item[3] }}">
+                        <span>説明会: {{ item[0] }}</span>
+                        <form method='POST' action="/delete/meeting/{{ item[3] }}">
+                            <button type="submit">Delete</button>
+                        </form>
+                    </div>
+                </li>
+                {% elif item[2] == 'intern' %}
+                <li class="tasks"></li>
+                    <div class="task-datetime">
+                        締切: {{ item[1] }}
                     </div>
                     <div class="task-title">
                         <input type="checkbox" name="task_completed" id="task_{{ item[3] }}">
