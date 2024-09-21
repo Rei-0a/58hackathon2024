@@ -32,6 +32,19 @@ def index():
     interns = Intern.query.all()  # インターンをすべて取得
     combined = []
 
+    # タスクの情報を追加
+    for task in tasks:
+        combined.append((task.title, task.due_date, 'task',task.id))  # タスクの情報をタプルとして追加
+
+    # インターンの情報を追加
+    for intern in interns:
+        combined.append((intern.name, intern.start_date, 'intern',intern.id))  # インターンの情報をタプルとして追加
+
+    # 日付でソート（タスクの締切日とインターンの開始日を比較）
+    combined.sort(key=lambda x: (x[1] is None, x[1]))  # Noneを最後にし、日付でソート
+
+    return render_template('app.html', combined=combined)
+
 @app.route('/tasks/<id>')
 def show_task(id):
     # idのタスクだけ取る
