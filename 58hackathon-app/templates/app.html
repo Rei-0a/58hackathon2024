@@ -6,6 +6,9 @@
     <title>就活ToDo</title>
     <link rel="stylesheet" href="https://unpkg.com/modern-css-reset/dist/reset.min.css" />
     <link rel="stylesheet" type="text/css" href="static/CSS/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sawarabi+Mincho&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -21,7 +24,7 @@
 
     <div class="container">
         <!-- タスクの新規追加 -->
-        <div class="form-container">
+        <div class="form-container" id="main-form">
             <h2>新規追加</h2>
             <div class="button-box">
                 <button type="button">ES</button>
@@ -45,30 +48,79 @@
             </form>
         </div>
 
+        <!-- タスク入力画面 -->
+        <div class="form-container" id="task-input" style="display: none;">
+            <h2>タスクの詳細を入力</h2>
+            <form action="/add_task_detail" method="POST">
+                <input type="text" name="title" placeholder="タスク名" required>
+                <input type="datetime-local" name="start_time" required>
+                <input type="datetime-local" name="end_time" required>
+                <input type="text" name="location" placeholder="会社の場所" required>
+                <label>
+                    <input type="radio" name="meeting_type" value="online" required> オンライン
+                </label>
+                <label>
+                    <input type="radio" name="meeting_type" value="offline" required> オフライン
+                </label>
+                <button type="submit">追加</button>
+                <button type="button" id="back-button">戻る</button>
+            </form>
+        </div>
+
         <!-- タスク一覧 -->
         <div class="task-box">
             <h2>タスク一覧</h2>
             <ul>
                 {% for item in combined %}
                 {% if item[2] == 'task' %}
-                <li>
-                    タスク: {{ item[0] }} - 締切: {{ item[1] }}
-                    <form method='POST' action="/delete/task/{{ item[3] }}">
-                        <button type="submit">Delete</button>
-                    </form>
+                <li class="tasks">
+                    <div class="task-datetime">
+                        締切: {{ item[1] }}
+                    </div>
+                    <div class="task-title">
+                        <input type="checkbox" name="task_completed" id="task_{{ item[3] }}">
+                        <span>タスク: {{ item[0] }}</span>
+                        <form method='POST' action="/delete/task/{{ item[3] }}">
+                            <button type="submit">Delete</button>
+                        </form>
+                    </div>
                 </li>
                 {% else %}
-                <li>
-                    インターン: {{ item[0] }} - 開始日: {{ item[1] }}
-                    <form method='POST' action="/delete/intern/{{ item[3] }}">
-                        <button type="submit">Delete</button>
-                    </form>
+                <li class="tasks">
+                    <div class="task-datetime">
+                        開始日: {{ item[1] }}
+                    </div>
+                    <div class="task-title">
+                        <input type="checkbox" name="task_completed" id="task_{{ item[3] }}">
+                        <span>インターン: {{ item[0] }}</span>
+                        <form method='POST' action="/delete/intern/{{ item[3] }}">
+                            <button type="submit">Delete</button>
+                        </form>
+                    </div>
                 </li>
                 {% endif %}
                 {% endfor %}
             </ul>
         </div>
     </div>
+
+    <script>
+        const taskInput = document.getElementById('task-input');
+        const mainForm = document.getElementById('main-form');
+        const buttonBox = document.querySelector('.button-box');
+
+        buttonBox.addEventListener('click', (event) => {
+            if (event.target.tagName === 'BUTTON') {
+                taskInput.style.display = 'block';
+                mainForm.style.display = 'none';
+            }
+        });
+
+        document.getElementById('back-button').addEventListener('click', () => {
+            taskInput.style.display = 'none';
+            mainForm.style.display = 'block';
+        });
+    </script>
 </body>
 
 </html>
