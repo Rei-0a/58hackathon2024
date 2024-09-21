@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>ToDoアプリ</title>
+</head>
+<body>
+    <h1>ToDoアプリ</h1>
+    <form action="/add" method="POST">
+        <input type="text" name="title" placeholder="タスク名" required>
+        <input type="datetime-local" name="due_date" required>
+        <button type="submit">追加</button>
+    </form>
+
+    <h2>タスク一覧</h2>
+    <ul>
+        {% for task in tasks %}
+            <li>{{ task.title }} - {{ task.due_date.strftime('%Y-%m-%d %H:%M') }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
