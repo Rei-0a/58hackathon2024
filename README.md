@@ -1,1 +1,1 @@
-# maido
+# maido-app
