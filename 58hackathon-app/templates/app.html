@@ -13,7 +13,7 @@
     </form>
 
     <h2>インターンを追加</h2>
-    <form action="/add_intern" method="post">
+    <form action="/add_intern" method="POST">
         <input type="text" name="title" placeholder="インターンの名前を入力"required>
         <input type="datetime-local" name="due_date" required>
         <button type="submit">追加</button>
@@ -24,14 +24,15 @@
         {% for item in combined %}
             {% if item[2] == 'task' %}
                 <li>
-                    タスク: {{ item[0] }} - 締切: {{ item[1] }}
+                    <a href="/tasks/{{item[3]}}">タスク: {{ item[0] }} - 締切: {{ item[1] }}</a>
+                    
                     <form method='POST' action="/delete/task/{{ item[3] }}">
                         <button type="submit">Delete</button>
                     </form>
                 </li>
             {% else %}
                 <li>
-                    インターン: {{ item[0] }} - 開始日: {{ item[1] }}
+                    <a href="/intern/{{item[3]}}">インターン: {{ item[0] }} - 開始日: {{ item[1] }}</a>
                     <form method='POST' action="/delete/intern/{{ item[3] }}">
                         <button type="submit">Delete</button>
                     </form>
