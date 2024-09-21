@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>タスクを編集</title>
+    <title>インターン編集</title>
 </head>
 <body>
-    <h1>タスクを編集する</h1>
+    <h1>インターン編集</h1>
     <form method="POST">
         <div>
             <label for="title">タイトル:</label>
@@ -16,6 +16,7 @@
             <label for="due_date">期限:</label>
             <input type="datetime-local" id="due_date" name="due_date" value="{{ task.due_date.strftime('%Y-%m-%dT%H:%M') }}" required>
         </div>
+        <h5>場所</h5>
         <button type="submit">保存</button>
     </form>
     <a href="/">戻る</a>
