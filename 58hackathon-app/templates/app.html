@@ -14,13 +14,18 @@
 <body>
     <header>
         <h1>就活ToDo</h1>
-        <a href="">ES</a>
-        <a href="">面接</a>
-        <a href="">説明会</a>
-        <a href="">インターン</a>
-        <a href="">予定</a>
-        <a href="">ToDo</a>
+        <nav>
+            <div class="filter-buttons">
+                <button class="filter-btn" data-filter="all">すべて</button>
+                <button class="filter-btn" data-filter="es">ES</button>
+                <button class="filter-btn" data-filter="interview">面接</button>
+                <button class="filter-btn" data-filter="briefing">説明会</button>
+                <button class="filter-btn" data-filter="intern">インターン</button>
+                <button class="filter-btn" data-filter="schedule">予定</button>
+            </div>
+        </nav>
     </header>
+
 
     <div class="container">
         <!-- タスクの新規追加 -->
@@ -62,8 +67,10 @@
                 <label>
                     <input type="radio" name="meeting_type" value="offline" required> オフライン
                 </label>
-                <button type="submit">追加</button>
-                <button type="button" id="back-button">戻る</button>
+                <div class="form-detail-button">
+                    <button type="button" id="back-button">戻る</button>
+                    <button type="submit">追加</button>
+                </div>
             </form>
         </div>
 
