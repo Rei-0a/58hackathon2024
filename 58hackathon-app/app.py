@@ -45,6 +45,7 @@ def index():
 
     return render_template('app.html', combined=combined)
 
+<<<<<<< HEAD
 @app.route('/tasks/<id>')
 def show_task(id):
     type = request.args.get('type')
@@ -86,6 +87,8 @@ def intern_edit(id):
     task = Intern.query.get(id)
     return render_template('intern_edit.html', task=task)
 
+=======
+>>>>>>> feature/Konosuke
 @app.route('/add_task', methods=['POST'])
 def add_task():
     title = request.form['title']

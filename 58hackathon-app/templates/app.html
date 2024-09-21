@@ -1,28 +1,56 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
-    <title>ToDoアプリ</title>
+    <title>就活ToDo</title>
+    <link rel="stylesheet" href="https://unpkg.com/modern-css-reset/dist/reset.min.css" />
+    <link rel="stylesheet" type="text/css" href="static/CSS/style.css">
 </head>
+
 <body>
-    <h1>Taskアプリ</h1>
-    <form action="/add_task" method="POST">
-        <input type="text" name="title" placeholder="タスク名" required>
-        <input type="datetime-local" name="due_date" required>
-        <button type="submit">追加</button>
-    </form>
+    <header>
+        <h1>就活ToDo</h1>
+        <a href="">ES</a>
+        <a href="">面接</a>
+        <a href="">説明会</a>
+        <a href="">インターン</a>
+        <a href="">予定</a>
+        <a href="">ToDo</a>
+    </header>
+  
+    <div class="container">
+        <!-- タスクの新規追加 -->
+        <div class="form-container">
+            <h2>新規追加</h2>
+            <div class="button-box">
+                <button type="button">ES</button>
+                <button type="button">面接</button>
+                <button type="button">説明会</button>
+                <button type="button">インターン</button>
+                <button type="button">予定</button>
+                <button type="button">ToDo</button>
+            </div>
+            <form action="/add_task" method="POST">
+                <input type="text" name="title" placeholder="タスク名" required>
+                <input type="datetime-local" name="due_date" required>
+                <button type="submit">追加</button>
+            </form>
 
-    <h2>インターンを追加</h2>
-    <form action="/add_intern" method="POST">
-        <input type="text" name="title" placeholder="インターンの名前を入力"required>
-        <input type="datetime-local" name="due_date" required>
-        <button type="submit">追加</button>
-    </form>
+            <h2>インターンを追加</h2>
+            <form action="/add_intern" method="post">
+                <input type="text" name="title" placeholder="インターンの名前を入力" required>
+                <input type="datetime-local" name="due_date" required>
+                <button type="submit">追加</button>
+            </form>
+        </div>
 
-    <h2>タスク一覧</h2>
-    <ul>
-        {% for item in combined %}
-            {% if item[2] == 'task' %}
+        <!-- タスク一覧 -->
+        <div class="task-box">
+            <h2>タスク一覧</h2>
+            <ul>
+                {% for item in combined %}
+                {% if item[2] == 'task' %}
                 <li>
                     <a href="/tasks/{{item[3]}}">タスク: {{ item[0] }} - 締切: {{ item[1] }}</a>
                     
@@ -30,15 +58,18 @@
                         <button type="submit">Delete</button>
                     </form>
                 </li>
-            {% else %}
+                {% else %}
                 <li>
                     <a href="/intern/{{item[3]}}">インターン: {{ item[0] }} - 開始日: {{ item[1] }}</a>
                     <form method='POST' action="/delete/intern/{{ item[3] }}">
                         <button type="submit">Delete</button>
                     </form>
                 </li>
-            {% endif %}
-        {% endfor %}
-    </ul>
+                {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
 </body>
+
 </html>
