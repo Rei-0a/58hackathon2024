@@ -45,6 +45,7 @@ def index():
 
     return render_template('app.html', combined=combined)
 
+<<<<<<< HEAD
 @app.route('/tasks/<id>')
 def show_task(id):
     # idのタスクだけ取る
@@ -59,6 +60,8 @@ def show_task(id):
 def nextpage():
     return render_template('nextpage.html')
 
+=======
+>>>>>>> feature/Konosuke
 @app.route('/add_task', methods=['POST'])
 def add_task():
     title = request.form['title']
