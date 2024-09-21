@@ -32,5 +32,12 @@ def add_task():
     db.session.commit()
     return redirect('/')
 
+@app.route('/delete/<int:task_id>',methods=['POST'])
+def delete(task_id):
+    task = Task.query.filter_by(id=task_id).first()
+    db.session.delete(task)
+    db.session.commit()
+    return redirect('/')
+
 if __name__ == '__main__':
     app.run(debug=True)
