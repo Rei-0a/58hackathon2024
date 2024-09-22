@@ -33,35 +33,35 @@
 <body>
 
     <div class="entry-content">
-        <h2>{{interview.title}}</h2>
+        <h2>{{task.title}}</h2>
     </div>      
 
     <p>
         <span class="material-icons">schedule</span>
-        <time>{{interview.due_date}}</time>
+        <time>{{task.start_date}}~{{task.end_date}}</time>
     </p>
     
     <p>
         <span class="material-icons">place</span> 
-        場所を入力
+        {{task.place}}
     </p>
 
 
     <h4>メモ</h4>
 
     <div class="memo">
-        エントリーシートとかのメモ
-    </div>  
+        {{task.body}}
+    </div> 
 
 
     <!--<button onclick="location.href='edit.html'">編集</button> -->
 
     <!-- ボタンを押すと、/nextpageに飛ぶ -->
-    <a href="/interview/{{interview.id}}/edit" method="get">
+    <a href="/interview/{{task.id}}/edit" method="get">
         Edit
     </a>
-    
-    
+
+    <a href="/">Back</a>
 
 </body>
 </html>

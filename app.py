@@ -71,9 +71,7 @@ def index():
     for meeting in meetings:
         combined.append((meeting.title, meeting.end_date, 'meeting',meeting.id))
     
-    # インターンの情報を追加
     for intern in interns:
-
         combined.append((intern.title, intern.end_date, 'intern',intern.id))  # インターンの情報をタプルとして追加
 
     # 日付でソート（タスクの締切日とインターンの開始日を比較）
@@ -83,7 +81,9 @@ def index():
 
 @app.route('/tasks/<id>')
 def show_task(id):
-    task = request.args.get('type')
+    #type = request.args.get('type')
+
+    # idのタスクだけ取る  
     task = Task.query.get(id)
     if task is None:
         return 'Task not found', 404
@@ -91,10 +91,18 @@ def show_task(id):
 
 @app.route('/intern/<id>')
 def show_intern(id):
-    intern = Intern.query.get(id)
-    if intern is None:
-        return 'Intern not found', 404
-    return render_template('intern_popup.html', task=intern)
+    task = Intern.query.get(id)
+    return render_template('intern_popup.html', task=task)
+
+@app.route('/interview/<id>')
+def show_interview(id):
+    task = Interview.query.get(id)
+    return render_template('interview_popup.html', task=task)
+
+@app.route('/meeting/<id>')
+def show_meeting(id):
+    task = Meeting.query.get(id)
+    return render_template('meeting_popup.html', task=task)
 
 @app.route('/interview/<id>')
 def show_interview(id):
@@ -115,20 +123,83 @@ def task_edit(id):
     task = Task.query.get(id)
     return render_template('task_edit.html', task=task)
 
-@app.route('/intern/<id>/edit')  
-def intern_edit(id):
-    intern = Intern.query.get(id)
-    return render_template('intern_edit.html', intern=intern)
+@app.route('/tasks/<id>/update', methods=['POST'])
+def update_task(id):
+    task = Task.query.get(id)
+    title = request.form['title']
+    task.title = title
+    start_date = datetime.fromisoformat(request.form['start_date'])
+    task.start_date = start_date
+    end_date = datetime.fromisoformat(request.form['end_date'])
+    task.end_date = end_date
+    body = request.form['body']
+    task.body = body
+    db.session.commit()
+    return redirect('/tasks/'+id)
 
-@app.route('/interview/<id>/edit') 
+@app.route('/interview/<id>/edit') #interviewの編集
 def interview_edit(id):
-    interview = Interview.query.get(id)
-    return render_template('interview_edit.html', interview=interview)
+    task = Interview.query.get(id)
+    return render_template('interview_edit.html', task=task)
 
-@app.route('/meeting/<id>/edit')  
+@app.route('/interview/<id>/update', methods=['POST'])
+def update_interview(id):
+    task = Interview.query.get(id)
+    title = request.form['title']
+    task.title = title
+    start_date = datetime.fromisoformat(request.form['start_date'])
+    task.start_date = start_date
+    end_date = datetime.fromisoformat(request.form['end_date'])
+    task.end_date = end_date
+    body = request.form['body']
+    task.body = body
+    place = request.form['place']
+    task.place = place
+    db.session.commit()
+    return redirect('/interview/'+id)
+
+@app.route('/meeting/<id>/edit') #meetingの編集
 def meeting_edit(id):
-    meeting = Meeting.query.get(id)
-    return render_template('meeting_edit.html', meeting=meeting)
+    task = Meeting.query.get(id)
+    return render_template('meeting_edit.html', task=task)
+
+
+@app.route('/meeting/<id>/update', methods=['POST'])
+def update_meeting(id):
+    task = Meeting.query.get(id)
+    title = request.form['title']
+    task.title = title
+    start_date = datetime.fromisoformat(request.form['start_date'])
+    task.start_date = start_date
+    end_date = datetime.fromisoformat(request.form['end_date'])
+    task.end_date = end_date
+    body = request.form['body']
+    task.body = body
+    place = request.form['place']
+    task.place = place
+    db.session.commit()
+    return redirect('/meeting/'+id)
+
+@app.route('/intern/<id>/edit')  #internの編集
+def intern_edit(id):
+    task = Intern.query.get(id)
+    return render_template('intern_edit.html', task=task)
+
+@app.route('/intern/<id>/update', methods=['POST']) #internの編集後の情報更新
+def update_intern(id):
+    task = Intern.query.get(id)
+    title = request.form['title']
+    task.title = title
+    start_date = datetime.fromisoformat(request.form['start_date'])
+    task.start_date = start_date
+    end_date = datetime.fromisoformat(request.form['end_date'])
+    task.end_date = end_date
+    body = request.form['body']
+    task.body = body
+    place = request.form['place']
+    task.place = place
+    db.session.commit()
+    return redirect('/intern/'+id)
 
 @app.route('/add_task', methods=['POST'])
 def add_task():
@@ -160,6 +231,7 @@ def add_meeting():
     end_date = datetime.fromisoformat(request.form['end_date'])
     body = request.form['body']
     place = request.form['place']
+
     new_meeting = Meeting(title=title, start_date=start_date, end_date=end_date, body=body, place=place)
     db.session.add(new_meeting)
     db.session.commit()

@@ -38,19 +38,15 @@
 
     <p>
         <span class="material-icons">schedule</span>
-        <time>{{task.due_date}}</time>
+        <time>{{task.start_date}}~{{task.end_date}}</time>
     </p>
-    
-    <p>
-        <span class="material-icons">place</span> 
-        場所を入力
-    </p>
+
 
 
     <h4>メモ</h4>
 
     <div class="memo">
-        エントリーシートとかのメモ
+        {{task.body}}
     </div>  
 
 
@@ -60,6 +56,9 @@
     <a href="/tasks/{{task.id}}/edit" method="get">
         Edit
     </a>
+
+    <!-- リンク (a) ぽいかボタン ぽいかで決める -->
+    <a href="/">Back</a>
     
     
 

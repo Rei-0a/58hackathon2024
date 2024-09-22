@@ -38,20 +38,20 @@
 
     <p>
         <span class="material-icons">schedule</span>
-        <time>{{task.due_date}}</time>
+        <time>{{task.start_date}}~{{task.end_date}}</time>
     </p>
     
     <p>
         <span class="material-icons">place</span> 
-        場所を入力
+        {{task.place}}
     </p>
 
 
     <h4>メモ</h4>
 
     <div class="memo">
-        エントリーシートとかのメモ
-    </div>  
+        {{task.body}}
+    </div> 
 
 
     <!--<button onclick="location.href='edit.html'">編集</button> -->
@@ -60,8 +60,8 @@
     <a href="/intern/{{task.id}}/edit" method="get">
         Edit
     </a>
-    
-    
+
+    <a href="/">Back</a>
 
 </body>
 </html>
