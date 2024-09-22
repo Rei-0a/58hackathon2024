@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 
@@ -47,26 +47,18 @@ def index():
 
 @app.route('/tasks/<id>')
 def show_task(id):
-    type = request.args.get('type')
+    #type = request.args.get('type')
 
     # idのタスクだけ取る
-    #tasks = Task.query.order_by(Task.due_date).all()
     task = Task.query.get(id)
-    #if type == 'task':
-    #    task = Task.query.get(id)  # 個別にとる typeごとに割り振る
-    #    return render_template('task_popup.html', task=task)
-    #elif type == 'intern':
-    #    task = Intern.query.get(id)
-    #    return render_template('intern_popup.html', task=task)
-    # show page
     return render_template('task_popup.html', task=task)
 
 @app.route('/intern/<id>')
 def show_intern(id):
-    type = request.args.get('type')
+    #type = request.args.get('type')
     # idのタスクだけ取る
     #tasks = Task.query.order_by(Task.due_date).all()
-    task = Task.query.get(id)
+    task = Intern.query.get(id)
     #if type == 'task':
     #    task = Task.query.get(id)  # 個別にとる typeごとに割り振る
     #    return render_template('task_popup.html', task=task)
@@ -86,6 +78,24 @@ def intern_edit(id):
     task = Intern.query.get(id)
     return render_template('intern_edit.html', task=task)
 
+@app.route('/edit/<int:id>', methods=['GET', 'POST'])
+def edit_task(id):
+    task = Task.query.get(id)  # idに対応するタスクを取得
+    
+    if request.method == 'POST':
+        # POSTリクエスト時の処理
+        task.title = request.form['title']  # タイトルを更新
+        task.due_date = datetime.strptime(request.form['due_date'], '%Y-%m-%dT%H:%M')  # 期限を更新
+        
+        # データベースに変更を保存
+        db.session.commit()
+        
+        # タスク一覧ページにリダイレクト
+        return redirect(url_for('show_tasks'))
+
+    # GETリクエスト時は編集ページを表示
+    return render_template('edit.html', task=task)
+
 @app.route('/add_task', methods=['POST'])
 def add_task():
     title = request.form['title']
@@ -103,6 +113,8 @@ def add_intern():
     db.session.add(new_intern)
     db.session.commit()
     return redirect('/')
+
+
 
 @app.route('/delete/task/<int:task_id>',methods=['POST'])
 def delete_task(task_id):
