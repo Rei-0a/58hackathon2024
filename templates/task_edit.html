@@ -13,8 +13,10 @@
             <input type="text" id="title" name="title" value="{{ task.title }}" required>
         </div>
         <div>
-            <label for="due_date">期限:</label>
-            <input type="datetime-local" id="due_date" name="due_date" value="{{ task.due_date.strftime('%Y-%m-%dT%H:%M') }}" required>
+            <label for="start_date">開始日:</label>
+            <input type="datetime-local" id="start_date" name="start_date" value="{{ task.start_date.strftime('%Y-%m-%dT%H:%M') }}" required>
+            <label for="end_date">終了日:</label>
+            <input type="datetime-local" id="end_date" name="end_date" value="{{ task.end_date.strftime('%Y-%m-%dT%H:%M') }}" required>
         </div>
 /        <button type="submit" onclick="location.href='/'">保存</button>
         <button type="button" class="btn btn-danger" onclick="history.back()">キャンセル</button>
