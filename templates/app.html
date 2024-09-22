@@ -61,7 +61,7 @@
                     <input type="datetime-local" name="start_date" required>
                     <input type="datetime-local" name="end_date" required>
                     <input type="text" name="body" placeholder="メモ" required>
-                    <input type="text" name="place" placeholder="場所" required>
+                    <!-- <input type="text" name="place" placeholder="場所" required> -->
                     <div class="form-detail-button">
                         <button type="button" class="back-button">戻る</button>
                         <button type="submit">追加</button>
@@ -76,7 +76,7 @@
                     <input type="datetime-local" name="start_date" required>
                     <input type="datetime-local" name="end_date" required>
                     <input type="text" name="body" placeholder="メモ" required>
-                    <input type="text" name="place" placeholder="場所" required>
+                    <!-- <input type="text" name="place" placeholder="場所" required> -->
                     <div class="form-detail-button">
                         <button type="button" class="back-button">戻る</button>
                         <button type="submit">追加</button>
@@ -113,7 +113,7 @@
                         {% if item[2] == 'task' %}
                         <a href="/tasks/{{item[3]}}">ES: {{ item[0] }}</a>
                         <form method='POST' action="/delete/task/{{ item[3] }}">
-                            <button type="submit">Delete</button>
+                            <button type="submit" >Delete</button>
                         </form>
                         {% elif item[2] == 'interview' %}
                         <a href="/interview/{{item[3]}}">面接: {{ item[0] }}</a>

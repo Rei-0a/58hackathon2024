@@ -84,8 +84,9 @@ def show_task(id):
     #type = request.args.get('type')
 
     # idのタスクだけ取る  
-    task = Task.query.get(id)  # 個別にとる
-    # show page
+    task = Task.query.get(id)
+    if task is None:
+        return 'Task not found', 404
     return render_template('task_popup.html', task=task)
 
 @app.route('/intern/<id>')
@@ -103,8 +104,21 @@ def show_meeting(id):
     task = Meeting.query.get(id)
     return render_template('meeting_popup.html', task=task)
 
+@app.route('/interview/<id>')
+def show_interview(id):
+    interview = Interview.query.get(id)
+    if interview is None:
+        return 'Interview not found', 404
+    return render_template('interview_popup.html', interview=interview)
 
-@app.route('/tasks/<id>/edit') #taskの編集
+@app.route('/meeting/<id>')
+def show_meeting(id):
+    meeting = Meeting.query.get(id)
+    if meeting is None:
+        return 'Meetingn not found', 404
+    return render_template('meeting_popup.html', meeting=meeting)
+
+@app.route('/tasks/<id>/edit') 
 def task_edit(id):
     task = Task.query.get(id)
     return render_template('task_edit.html', task=task)
@@ -205,8 +219,8 @@ def add_interview():
     end_date = datetime.fromisoformat(request.form['end_date'])
     body = request.form['body']
     place = request.form['place']
-    new_task = Interview(title=title, start_date=start_date, end_date=end_date, body=body, place=place)
-    db.session.add(new_task)
+    new_interview = Interview(title=title, start_date=start_date, end_date=end_date, body=body, place=place)
+    db.session.add(new_interview)
     db.session.commit()
     return redirect('/')
 
@@ -217,8 +231,9 @@ def add_meeting():
     end_date = datetime.fromisoformat(request.form['end_date'])
     body = request.form['body']
     place = request.form['place']
-    new_task = Meeting(title=title, start_date=start_date, end_date=end_date, body=body, place=place)
-    db.session.add(new_task)
+
+    new_meeting = Meeting(title=title, start_date=start_date, end_date=end_date, body=body, place=place)
+    db.session.add(new_meeting)
     db.session.commit()
     return redirect('/')
 

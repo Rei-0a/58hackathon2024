@@ -33,12 +33,15 @@
 <body>
 
     <div class="entry-content">
+
         <h2>{{task.title}}</h2>
     </div>      
 
     <p>
         <span class="material-icons">schedule</span>
+
         <time>{{task.start_date}}~{{task.end_date}}</time>
+
     </p>
     
     <p>
@@ -54,14 +57,17 @@
     </div> 
 
 
+
     <!--<button onclick="location.href='edit.html'">編集</button> -->
 
     <!-- ボタンを押すと、/nextpageに飛ぶ -->
+
     <a href="/meeting/{{task.id}}/edit" method="get">
         Edit
     </a>
 
     <a href="/">Back</a>
+
 
 </body>
 </html>
