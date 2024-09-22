@@ -21,13 +21,10 @@
                 <button class="filter-btn" data-filter="interview">面接</button>
                 <button class="filter-btn" data-filter="briefing">説明会</button>
                 <button class="filter-btn" data-filter="intern">インターン</button>
-                <button class="filter-btn" data-filter="schedule">予定</button>
             </div>
         </nav>
     </header>
 
-
-  
     <div class="container">
         <!-- タスクの新規追加 -->
         <div class="form-container" id="main-form">
@@ -37,69 +34,71 @@
                 <button type="button">面接</button>
                 <button type="button">説明会</button>
                 <button type="button">インターン</button>
-                <button type="button">予定</button>
-                <button type="button">ToDo</button>
             </div>
-
-            <h2>ESを追加</h2>
-            <form action="/add_task" method="POST">
-                <input type="text" name="title" placeholder="タスク名" required>
-                <input type="datetime-local" name="start_date" required>
-                <input type="datetime-local" name="end_date" required>
-                <input type="text" name="body" placeholder="メモ" required>
-                <button type="submit">追加</button>
-            </form>
-
-            <h2>面接を追加</h2>
-            <form action="/add_interview" method="POST"></form>
-                <input type="text" name="title" placeholder="タスク名" required>
-                <input type="datetime-local" name="start_date" required>
-                <input type="datetime-local" name="end_date" required>
-                <input type="text" name="body" placeholder="メモ" required>
-                <input type="text" name="place" placeholder="場所" required>
-                <button type="submit">追加</button>
-            </form>
-
-            <h2>説明会を追加</h2>
-            <form action="/add_meeting" method="POST"></form>
-                <input type="text" name="title" placeholder="タスク名" required>
-                <input type="datetime-local" name="start_date" required>
-                <input type="datetime-local" name="end_date" required>
-                <input type="text" name="body" placeholder="メモ" required>
-                <input type="text" name="place" placeholder="場所" required>
-                <button type="submit">追加</button>
-            </form>
-
-            <h2>インターンを追加</h2>
-            <form action="/add_intern" method="post">
-                <input type="text" name="title" placeholder="インターンの名前を入力" required>
-                <input type="datetime-local" name="start_date" required>
-                <input type="datetime-local" name="end_date" required>
-                <input type="text" name="body" placeholder="メモ" required>
-                <input type="text" name="place" placeholder="場所" required>
-                <button type="submit">追加</button>
-            </form>
         </div>
 
-        <!-- タスク入力画面 -->
-        <div class="form-container" id="task-input" style="display: none;">
+        <div class="new-form-container" id="task-input" style="display: none;">
             <h2>タスクの詳細を入力</h2>
-            <form action="/add_task_detail" method="POST">
-                <input type="text" name="title" placeholder="タスク名" required>
-                <input type="datetime-local" name="start_time" required>
-                <input type="datetime-local" name="end_time" required>
-                <input type="text" name="location" placeholder="会社の場所" required>
-                <label>
-                    <input type="radio" name="meeting_type" value="online" required> オンライン
-                </label>
-                <label>
-                    <input type="radio" name="meeting_type" value="offline" required> オフライン
-                </label>
-                <div class="form-detail-button">
-                    <button type="button" id="back-button">戻る</button>
-                    <button type="submit">追加</button>
-                </div>
-            </form>
+
+            <div id="es-form" class="task-form" style="display: none;">
+                <h2>ESを追加</h2>
+                <form action="/add_task" method="POST">
+                    <input type="text" name="title" placeholder="タスク名" required>
+                    <input type="datetime-local" name="start_date" required>
+                    <input type="datetime-local" name="end_date" required>
+                    <input type="text" name="body" placeholder="メモ" required>
+                    <div class="form-detail-button">
+                        <button type="button" class="back-button">戻る</button>
+                        <button type="submit">追加</button>
+                    </div>
+                </form>
+            </div>
+
+            <div id="interview-form" class="task-form" style="display: none;">
+                <h2>面接を追加</h2>
+                <form action="/add_interview" method="POST">
+                    <input type="text" name="title" placeholder="タスク名" required>
+                    <input type="datetime-local" name="start_date" required>
+                    <input type="datetime-local" name="end_date" required>
+                    <input type="text" name="body" placeholder="メモ" required>
+                    <input type="text" name="place" placeholder="場所" required>
+                    <div class="form-detail-button">
+                        <button type="button" class="back-button">戻る</button>
+                        <button type="submit">追加</button>
+                    </div>
+                </form>
+            </div>
+
+            <div id="meeting-form" class="task-form" style="display: none;">
+                <h2>説明会を追加</h2>
+                <form action="/add_meeting" method="POST">
+                    <input type="text" name="title" placeholder="タスク名" required>
+                    <input type="datetime-local" name="start_date" required>
+                    <input type="datetime-local" name="end_date" required>
+                    <input type="text" name="body" placeholder="メモ" required>
+                    <input type="text" name="place" placeholder="場所" required>
+                    <div class="form-detail-button">
+                        <button type="button" class="back-button">戻る</button>
+                        <button type="submit">追加</button>
+                    </div>
+                </form>
+            </div>
+
+            <div id="intern-form" class="task-form" style="display: none;">
+                <h2>インターンを追加</h2>
+                <form action="/add_intern" method="POST">
+                    <input type="text" name="title" placeholder="インターンの名前を入力" required>
+                    <input type="datetime-local" name="start_date" required>
+                    <input type="datetime-local" name="end_date" required>
+                    <input type="text" name="body" placeholder="メモ" required>
+                    <input type="text" name="place" placeholder="場所" required>
+                    <div class="form-detail-button">
+                        <button type="button" class="back-button">戻る</button>
+                        <button type="submit">追加</button>
+                    </div>
+                </form>
+            </div>
+
         </div>
 
         <!-- タスク一覧 -->
@@ -107,59 +106,33 @@
             <h2>タスク一覧</h2>
             <ul>
                 {% for item in combined %}
-                {% if item[2] == 'task' %}
                 <li class="tasks">
-                    <div class="task-datetime">
-                        締切: {{ item[1] }}
-                    </div>
+                    <div class="task-datetime">締切: {{ item[1] }}</div>
                     <div class="task-title">
                         <input type="checkbox" name="task_completed" id="task_{{ item[3] }}">
-                        <a href = "/tasks/{{item[3]}}">タスク: {{ item[0] }}</a>
+                        {% if item[2] == 'task' %}
+                        <a href="/tasks/{{item[3]}}">ES: {{ item[0] }}</a>
                         <form method='POST' action="/delete/task/{{ item[3] }}">
                             <button type="submit">Delete</button>
                         </form>
-                    </div>
-                </li>
-                {% elif item[2] == 'interview' %}
-                <li class="tasks">
-                    <div class="task-datetime">
-                        締切: {{ item[1] }}
-                    </div>
-                    <div class="task-title">
-                        <input type="checkbox" name="task_completed" id="task_{{ item[3] }}">
-                        <a href = "/tasks/{{item[3]}}">面接: {{ item[0] }}</a>
+                        {% elif item[2] == 'interview' %}
+                        <a href="/tasks/{{item[3]}}">面接: {{ item[0] }}</a>
                         <form method='POST' action="/delete/interview/{{ item[3] }}">
                             <button type="submit">Delete</button>
                         </form>
-                    </div>
-                </li>
-                {% elif item[2] == 'meeting' %}
-                <li class="tasks"></li>
-                    <div class="task-datetime">
-                        締切: {{ item[1] }}
-                    </div>
-                    <div class="task-title">
-                        <input type="checkbox" name="task_completed" id="task_{{ item[3] }}">
-                        <a href = "/tasks/{{item[3]}}">説明会: {{ item[0] }}</a>
+                        {% elif item[2] == 'meeting' %}
+                        <a href="/tasks/{{item[3]}}">説明会: {{ item[0] }}</a>
                         <form method='POST' action="/delete/meeting/{{ item[3] }}">
                             <button type="submit">Delete</button>
                         </form>
-                    </div>
-                </li>
-                {% elif item[2] == 'intern' %}
-                <li class="interns"></li>
-                    <div class="intern-datetime">
-                        締切: {{ item[1] }}
-                    </div>
-                    <div class="task-title">
-                        <input type="checkbox" name="interns_completed" id="interns_{{ item[3] }}">
-                        <a href = "/intern/{{item[3]}}">インターン: {{ item[0] }}</a>
+                        {% elif item[2] == 'intern' %}
+                        <a href="/intern/{{item[3]}}">インターン: {{ item[0] }}</a>
                         <form method='POST' action="/delete/intern/{{ item[3] }}">
                             <button type="submit">Delete</button>
                         </form>
+                        {% endif %}
                     </div>
                 </li>
-                {% endif %}
                 {% endfor %}
             </ul>
         </div>
@@ -170,16 +143,48 @@
         const mainForm = document.getElementById('main-form');
         const buttonBox = document.querySelector('.button-box');
 
+        const esForm = document.getElementById('es-form');
+        const interviewForm = document.getElementById('interview-form');
+        const meetingForm = document.getElementById('meeting-form');
+        const internForm = document.getElementById('intern-form');
+
+        // 全てのフォームを一旦隠す関数
+        function hideAllForms() {
+            esForm.style.display = 'none';
+            interviewForm.style.display = 'none';
+            meetingForm.style.display = 'none';
+            internForm.style.display = 'none';
+        }
+
+        // ボタンボックスのクリックイベント
         buttonBox.addEventListener('click', (event) => {
             if (event.target.tagName === 'BUTTON') {
-                taskInput.style.display = 'block';
-                mainForm.style.display = 'none';
+                const taskType = event.target.textContent;
+
+                taskInput.style.display = 'block'; // タスク入力画面を表示
+                mainForm.style.display = 'none'; // メインフォームを隠す
+                hideAllForms(); // 全てのフォームを一旦隠す
+
+                // クリックされたボタンに応じてフォームを表示
+                if (taskType === 'ES') {
+                    esForm.style.display = 'block';
+                } else if (taskType === '面接') {
+                    interviewForm.style.display = 'block';
+                } else if (taskType === '説明会') {
+                    meetingForm.style.display = 'block';
+                } else if (taskType === 'インターン') {
+                    internForm.style.display = 'block';
+                }
             }
         });
 
-        document.getElementById('back-button').addEventListener('click', () => {
-            taskInput.style.display = 'none';
-            mainForm.style.display = 'block';
+        // 戻るボタンのクリックイベント
+        document.querySelectorAll('.back-button').forEach(button => {
+            button.addEventListener('click', () => {
+                taskInput.style.display = 'none'; // タスク入力画面を隠す
+                mainForm.style.display = 'block'; // メインフォームを再表示
+                hideAllForms(); // 全てのフォームを再度隠す
+            });
         });
     </script>
 </body>
