@@ -102,21 +102,9 @@ def show_interview(id):
 @app.route('/meeting/<id>')
 def show_meeting(id):
     task = Meeting.query.get(id)
-    return render_template('meeting_popup.html', task=task)
-
-@app.route('/interview/<id>')
-def show_interview(id):
-    interview = Interview.query.get(id)
-    if interview is None:
-        return 'Interview not found', 404
-    return render_template('interview_popup.html', interview=interview)
-
-@app.route('/meeting/<id>')
-def show_meeting(id):
-    meeting = Meeting.query.get(id)
-    if meeting is None:
+    if task is None:
         return 'Meetingn not found', 404
-    return render_template('meeting_popup.html', meeting=meeting)
+    return render_template('meeting_popup.html', task=task)
 
 @app.route('/tasks/<id>/edit') 
 def task_edit(id):
