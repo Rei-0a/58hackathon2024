@@ -40,27 +40,28 @@
         <span class="material-icons">schedule</span>
         <time>{{task.start_date}}~{{task.end_date}}</time>
     </p>
-
+    
+    <p>
+        <span class="material-icons">place</span> 
+        {{task.place}}
+    </p>
 
 
     <h4>メモ</h4>
 
     <div class="memo">
         {{task.body}}
-    </div>  
+    </div> 
 
 
     <!--<button onclick="location.href='edit.html'">編集</button> -->
 
     <!-- ボタンを押すと、/nextpageに飛ぶ -->
-    <a href="/tasks/{{task.id}}/edit" method="get">
+    <a href="/interview/{{task.id}}/edit" method="get">
         Edit
     </a>
 
-    <!-- リンク (a) ぽいかボタン ぽいかで決める -->
     <a href="/">Back</a>
-    
-    
 
 </body>
 </html>

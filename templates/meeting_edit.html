@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ES編集</title>
+    <title>説明会編集</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -55,8 +55,8 @@
     </style>
 </head>
 <body>
-    <h1>ES編集</h1>
-    <form method="POST" action="/tasks/{{task.id}}/update">
+    <h1>説明会編集</h1>
+    <form method="POST" action="/meeting/{{task.id}}/update">
         <div>
             <label for="title">タイトル:</label>
             <input type="text" id="title" name="title" value="{{ task.title }}" required>
@@ -68,6 +68,10 @@
         <div>
             <label for="end_date">終了日:</label>
             <input type="datetime-local" id="end_date" name="end_date" value="{{ task.end_date.strftime('%Y-%m-%dT%H:%M') }}" required>
+        </div>
+        <div>
+            <label for="place">場所:</label>
+            <input type="text" id="place" name="place" value="{{task.place}}">
         </div>
         <div>
             <label for="body">メモ:</label>

@@ -26,7 +26,7 @@ class Interview(db.Model):
     place = db.Column(db.String(100), nullable=False)
 
     def __repr__(self):
-        return f'<Task {self.title}>'
+        return f'<Interview {self.title}>'
 
 class Meeting(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -37,7 +37,7 @@ class Meeting(db.Model):
     place = db.Column(db.String(100), nullable=False)
 
     def __repr__(self):
-        return f'<Task {self.title}>'
+        return f'<Meeting {self.title}>'
 
 class Intern(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -93,6 +93,17 @@ def show_intern(id):
     task = Intern.query.get(id)
     return render_template('intern_popup.html', task=task)
 
+@app.route('/interview/<id>')
+def show_interview(id):
+    task = Interview.query.get(id)
+    return render_template('interview_popup.html', task=task)
+
+@app.route('/meeting/<id>')
+def show_meeting(id):
+    task = Meeting.query.get(id)
+    return render_template('meeting_popup.html', task=task)
+
+
 @app.route('/tasks/<id>/edit') #taskの編集
 def task_edit(id):
     task = Task.query.get(id)
@@ -112,6 +123,49 @@ def update_task(id):
     db.session.commit()
     return redirect('/tasks/'+id)
 
+@app.route('/interview/<id>/edit') #interviewの編集
+def interview_edit(id):
+    task = Interview.query.get(id)
+    return render_template('interview_edit.html', task=task)
+
+@app.route('/interview/<id>/update', methods=['POST'])
+def update_interview(id):
+    task = Interview.query.get(id)
+    title = request.form['title']
+    task.title = title
+    start_date = datetime.fromisoformat(request.form['start_date'])
+    task.start_date = start_date
+    end_date = datetime.fromisoformat(request.form['end_date'])
+    task.end_date = end_date
+    body = request.form['body']
+    task.body = body
+    place = request.form['place']
+    task.place = place
+    db.session.commit()
+    return redirect('/interview/'+id)
+
+@app.route('/meeting/<id>/edit') #meetingの編集
+def meeting_edit(id):
+    task = Meeting.query.get(id)
+    return render_template('meeting_edit.html', task=task)
+
+
+@app.route('/meeting/<id>/update', methods=['POST'])
+def update_meeting(id):
+    task = Meeting.query.get(id)
+    title = request.form['title']
+    task.title = title
+    start_date = datetime.fromisoformat(request.form['start_date'])
+    task.start_date = start_date
+    end_date = datetime.fromisoformat(request.form['end_date'])
+    task.end_date = end_date
+    body = request.form['body']
+    task.body = body
+    place = request.form['place']
+    task.place = place
+    db.session.commit()
+    return redirect('/meeting/'+id)
+
 @app.route('/intern/<id>/edit')  #internの編集
 def intern_edit(id):
     task = Intern.query.get(id)
@@ -128,6 +182,8 @@ def update_intern(id):
     task.end_date = end_date
     body = request.form['body']
     task.body = body
+    place = request.form['place']
+    task.place = place
     db.session.commit()
     return redirect('/intern/'+id)
 
@@ -149,7 +205,7 @@ def add_interview():
     end_date = datetime.fromisoformat(request.form['end_date'])
     body = request.form['body']
     place = request.form['place']
-    new_task = Task(title=title, start_date=start_date, end_date=end_date, body=body, place=place)
+    new_task = Interview(title=title, start_date=start_date, end_date=end_date, body=body, place=place)
     db.session.add(new_task)
     db.session.commit()
     return redirect('/')
@@ -161,7 +217,7 @@ def add_meeting():
     end_date = datetime.fromisoformat(request.form['end_date'])
     body = request.form['body']
     place = request.form['place']
-    new_task = Task(title=title, start_date=start_date, end_date=end_date, body=body, place=place)
+    new_task = Meeting(title=title, start_date=start_date, end_date=end_date, body=body, place=place)
     db.session.add(new_task)
     db.session.commit()
     return redirect('/')
