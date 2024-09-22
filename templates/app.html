@@ -116,12 +116,12 @@
                             <button type="submit" >Delete</button>
                         </form>
                         {% elif item[2] == 'interview' %}
-                        <a href="/tasks/{{item[3]}}">面接: {{ item[0] }}</a>
+                        <a href="/interview/{{item[3]}}">面接: {{ item[0] }}</a>
                         <form method='POST' action="/delete/interview/{{ item[3] }}">
                             <button type="submit">Delete</button>
                         </form>
                         {% elif item[2] == 'meeting' %}
-                        <a href="/tasks/{{item[3]}}">説明会: {{ item[0] }}</a>
+                        <a href="/meeting/{{item[3]}}">説明会: {{ item[0] }}</a>
                         <form method='POST' action="/delete/meeting/{{ item[3] }}">
                             <button type="submit">Delete</button>
                         </form>
