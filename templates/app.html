@@ -113,7 +113,7 @@
                         {% if item[2] == 'task' %}
                         <a href="/tasks/{{item[3]}}">ES: {{ item[0] }}</a>
                         <form method='POST' action="/delete/task/{{ item[3] }}">
-                            <button type="submit">Delete</button>
+                            <button type="submit" >Delete</button>
                         </form>
                         {% elif item[2] == 'interview' %}
                         <a href="/tasks/{{item[3]}}">面接: {{ item[0] }}</a>
