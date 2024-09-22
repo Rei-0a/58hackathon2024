@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ES編集</title>
+</head>
+<body>
+    <h1>ES編集</h1>
+    <form method="POST">
+        <div>
+            <label for="title">タイトル:</label>
+            <input type="text" id="title" name="title" value="{{ interview.title }}" required>
+        </div>
+        <div>
+            <label for="start_date">開始日:</label>
+            <input type="datetime-local" id="start_date" name="start_date" value="{{ interview.start_date.strftime('%Y-%m-%dT%H:%M') }}" required>
+            <label for="end_date">終了日:</label>
+            <input type="datetime-local" id="end_date" name="end_date" value="{{ interview.end_date.strftime('%Y-%m-%dT%H:%M') }}" required>
+        </div>
+        <button type="submit">保存</button>
+    </form>
+    <a href="/">戻る</a>
+</body>
+</html>

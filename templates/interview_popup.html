@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>予定の詳細</title>
+
+    <style>
+        .entry-content {
+        border-top: 2px double #333;
+        border-bottom: 2px double #333;
+        padding: 0.5em 0;
+        }
+        
+        .memo {
+        padding:2em; /* 内側余白 */
+        border:dashed 2px #b3ada4; /* 線の種類・太さ・色 */
+    }
+
+    </style>
+
+    
+
+    <!--アイコン表示-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    
+    
+</head>
+
+
+<body>
+
+    <div class="entry-content">
+        <h2>{{interview.title}}</h2>
+    </div>      
+
+    <p>
+        <span class="material-icons">schedule</span>
+        <time>{{interview.due_date}}</time>
+    </p>
+    
+    <p>
+        <span class="material-icons">place</span> 
+        場所を入力
+    </p>
+
+
+    <h4>メモ</h4>
+
+    <div class="memo">
+        エントリーシートとかのメモ
+    </div>  
+
+
+    <!--<button onclick="location.href='edit.html'">編集</button> -->
+
+    <!-- ボタンを押すと、/nextpageに飛ぶ -->
+    <a href="/interview/{{interview.id}}/edit" method="get">
+        Edit
+    </a>
+    
+    
+
+</body>
+</html>

@@ -26,7 +26,7 @@ class Interview(db.Model):
     place = db.Column(db.String(100), nullable=False)
 
     def __repr__(self):
-        return f'<Task {self.title}>'
+        return f'<Interview {self.title}>'
 
 class Meeting(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -37,7 +37,7 @@ class Meeting(db.Model):
     place = db.Column(db.String(100), nullable=False)
 
     def __repr__(self):
-        return f'<Task {self.title}>'
+        return f'<Meeting {self.title}>'
 
 class Intern(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -83,51 +83,52 @@ def index():
 
 @app.route('/tasks/<id>')
 def show_task(id):
-    type = request.args.get('type')
-
-    # idのタスクだけ取る
-
-    #tasks = Task.query.order_by(Task.due_date).all()
+    task = request.args.get('type')
     task = Task.query.get(id)
-    #if type == 'task':
-    #    task = Task.query.get(id)  # 個別にとる typeごとに割り振る
-    #    return render_template('task_popup.html', task=task)
-    #elif type == 'intern':
-    #    task = Intern.query.get(id)
-    #    return render_template('intern_popup.html', task=task)
-
-    #tasks = Task.query.order_by(Task.end_date).all() 
-    
-    task = Task.query.get(id)  # 個別にとる
-    
-
-    # show page
+    if task is None:
+        return 'Task not found', 404
     return render_template('task_popup.html', task=task)
 
 @app.route('/intern/<id>')
 def show_intern(id):
-    type = request.args.get('type')
-    # idのタスクだけ取る
-    #tasks = Task.query.order_by(Task.due_date).all()
-    task = Task.query.get(id)
-    #if type == 'task':
-    #    task = Task.query.get(id)  # 個別にとる typeごとに割り振る
-    #    return render_template('task_popup.html', task=task)
-    #elif type == 'intern':
-    #    task = Intern.query.get(id)
-    #    return render_template('intern_popup.html', task=task)
-    # show page
-    return render_template('intern_popup.html', task=task)
+    intern = Intern.query.get(id)
+    if intern is None:
+        return 'Intern not found', 404
+    return render_template('intern_popup.html', task=intern)
 
-@app.route('/tasks/<id>/edit') #taskの編集
+@app.route('/interview/<id>')
+def show_interview(id):
+    interview = Interview.query.get(id)
+    if interview is None:
+        return 'Interview not found', 404
+    return render_template('interview_popup.html', interview=interview)
+
+@app.route('/meeting/<id>')
+def show_meeting(id):
+    meeting = Meeting.query.get(id)
+    if meeting is None:
+        return 'Meetingn not found', 404
+    return render_template('meeting_popup.html', meeting=meeting)
+
+@app.route('/tasks/<id>/edit') 
 def task_edit(id):
     task = Task.query.get(id)
     return render_template('task_edit.html', task=task)
 
-@app.route('/intern/<id>/edit')  #internの編集
+@app.route('/intern/<id>/edit')  
 def intern_edit(id):
     intern = Intern.query.get(id)
     return render_template('intern_edit.html', intern=intern)
+
+@app.route('/interview/<id>/edit') 
+def interview_edit(id):
+    interview = Interview.query.get(id)
+    return render_template('interview_edit.html', interview=interview)
+
+@app.route('/meeting/<id>/edit')  
+def meeting_edit(id):
+    meeting = Meeting.query.get(id)
+    return render_template('meeting_edit.html', meeting=meeting)
 
 @app.route('/add_task', methods=['POST'])
 def add_task():
@@ -147,8 +148,8 @@ def add_interview():
     end_date = datetime.fromisoformat(request.form['end_date'])
     body = request.form['body']
     place = request.form['place']
-    new_task = Task(title=title, start_date=start_date, end_date=end_date, body=body, place=place)
-    db.session.add(new_task)
+    new_interview = Interview(title=title, start_date=start_date, end_date=end_date, body=body, place=place)
+    db.session.add(new_interview)
     db.session.commit()
     return redirect('/')
 
@@ -159,8 +160,8 @@ def add_meeting():
     end_date = datetime.fromisoformat(request.form['end_date'])
     body = request.form['body']
     place = request.form['place']
-    new_task = Task(title=title, start_date=start_date, end_date=end_date, body=body, place=place)
-    db.session.add(new_task)
+    new_meeting = Meeting(title=title, start_date=start_date, end_date=end_date, body=body, place=place)
+    db.session.add(new_meeting)
     db.session.commit()
     return redirect('/')
 
