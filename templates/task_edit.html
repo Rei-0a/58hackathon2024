@@ -7,7 +7,7 @@
 </head>
 <body>
     <h1>ES編集</h1>
-    <form method="POST">
+    <form method="POST" action="/tasks/{{task.id}}/update">
         <div>
             <label for="title">タイトル:</label>
             <input type="text" id="title" name="title" value="{{ task.title }}" required>
@@ -17,9 +17,12 @@
             <input type="datetime-local" id="start_date" name="start_date" value="{{ task.start_date.strftime('%Y-%m-%dT%H:%M') }}" required>
             <label for="end_date">終了日:</label>
             <input type="datetime-local" id="end_date" name="end_date" value="{{ task.end_date.strftime('%Y-%m-%dT%H:%M') }}" required>
+            <!-- 1行のみはinput 複数行はtextarea -->
+            <input type="text" id="body" name="body" value="{{task.body}}">
         </div>
-        <button type="submit">保存</button>
+/        <button type="submit" onclick="location.href='/'">save</button>
+        <button type="button" class="btn btn-danger" onclick="history.back()">cancel</button>
+
     </form>
-    <a href="/">戻る</a>
 </body>
 </html>

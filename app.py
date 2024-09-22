@@ -71,9 +71,7 @@ def index():
     for meeting in meetings:
         combined.append((meeting.title, meeting.end_date, 'meeting',meeting.id))
     
-    # インターンの情報を追加
     for intern in interns:
-
         combined.append((intern.title, intern.end_date, 'intern',intern.id))  # インターンの情報をタプルとして追加
 
     # 日付でソート（タスクの締切日とインターンの開始日を比較）
@@ -83,40 +81,16 @@ def index():
 
 @app.route('/tasks/<id>')
 def show_task(id):
-    type = request.args.get('type')
+    #type = request.args.get('type')
 
-    # idのタスクだけ取る
-
-    #tasks = Task.query.order_by(Task.due_date).all()
-    task = Task.query.get(id)
-    #if type == 'task':
-    #    task = Task.query.get(id)  # 個別にとる typeごとに割り振る
-    #    return render_template('task_popup.html', task=task)
-    #elif type == 'intern':
-    #    task = Intern.query.get(id)
-    #    return render_template('intern_popup.html', task=task)
-
-    #tasks = Task.query.order_by(Task.end_date).all() 
-    
+    # idのタスクだけ取る  
     task = Task.query.get(id)  # 個別にとる
-    
-
     # show page
     return render_template('task_popup.html', task=task)
 
 @app.route('/intern/<id>')
 def show_intern(id):
-    type = request.args.get('type')
-    # idのタスクだけ取る
-    #tasks = Task.query.order_by(Task.due_date).all()
-    task = Task.query.get(id)
-    #if type == 'task':
-    #    task = Task.query.get(id)  # 個別にとる typeごとに割り振る
-    #    return render_template('task_popup.html', task=task)
-    #elif type == 'intern':
-    #    task = Intern.query.get(id)
-    #    return render_template('intern_popup.html', task=task)
-    # show page
+    task = Intern.query.get(id)
     return render_template('intern_popup.html', task=task)
 
 @app.route('/tasks/<id>/edit') #taskの編集
@@ -124,10 +98,38 @@ def task_edit(id):
     task = Task.query.get(id)
     return render_template('task_edit.html', task=task)
 
+@app.route('/tasks/<id>/update', methods=['POST'])
+def update_task(id):
+    task = Task.query.get(id)
+    title = request.form['title']
+    task.title = title
+    start_date = datetime.fromisoformat(request.form['start_date'])
+    task.start_date = start_date
+    end_date = datetime.fromisoformat(request.form['end_date'])
+    task.end_date = end_date
+    body = request.form['body']
+    task.body = body
+    db.session.commit()
+    return redirect('/tasks/'+id)
+
 @app.route('/intern/<id>/edit')  #internの編集
 def intern_edit(id):
-    intern = Intern.query.get(id)
-    return render_template('intern_edit.html', intern=intern)
+    task = Intern.query.get(id)
+    return render_template('intern_edit.html', task=task)
+
+@app.route('/intern/<id>/update', methods=['POST']) #internの編集後の情報更新
+def update_intern(id):
+    task = Intern.query.get(id)
+    title = request.form['title']
+    task.title = title
+    start_date = datetime.fromisoformat(request.form['start_date'])
+    task.start_date = start_date
+    end_date = datetime.fromisoformat(request.form['end_date'])
+    task.end_date = end_date
+    body = request.form['body']
+    task.body = body
+    db.session.commit()
+    return redirect('/intern/'+id)
 
 @app.route('/add_task', methods=['POST'])
 def add_task():
