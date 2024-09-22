@@ -1,0 +1,48 @@
+body {
+    font-family: 'Arial', sans - serif;
+    line-height: 1.6;
+    margin: 0;
+    background-color: #f5f5f5;
+    /* 明るい背景 */
+}
+
+
+header {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #28A6A5;
+    color: white;
+    width: 100%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+nav {
+    display: flex;
+    align-items: center;
+}
+
+.filter-buttons {
+    display: flex;
+    gap: 10px;
+    /* ボタン間の間隔 */
+}
+
+.filter-btn {
+    background-color: #28A6A5;
+    color: white;
+    border: none;
+    border-left: 3px solid gray;
+    padding: 10px 15px;
+    /* パディングを追加 */
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    /* ホバー時のエフェクト */
+}
+
+.filter-btn:hover {
+    background-color: #197d7d;
+    /* ホバー時の色 */
+    transform: scale(1.05);
+    /* ホバー時に少し大きくなる */
+}
