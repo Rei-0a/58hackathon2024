@@ -10,7 +10,6 @@ db = SQLAlchemy(app)
 class Task(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(200), nullable=False)
-<<<<<<< HEAD
     start_date = db.Column(db.DateTime, nullable=False)
     end_date = db.Column(db.DateTime, nullable=False)
     body = db.Column(db.String(500), nullable=False)
@@ -36,9 +35,6 @@ class Meeting(db.Model):
     end_date = db.Column(db.DateTime, nullable=False)
     body = db.Column(db.String(500), nullable=False)
     place = db.Column(db.String(100), nullable=False)
-=======
-    due_date = db.Column(db.DateTime, nullable=False)
->>>>>>> e9ae67c (update)
 
     def __repr__(self):
         return f'<Task {self.title}>'
@@ -46,14 +42,10 @@ class Meeting(db.Model):
 class Intern(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(200), nullable=False)
-<<<<<<< HEAD
     start_date = db.Column(db.DateTime, nullable=False)
     end_date = db.Column(db.DateTime, nullable=False)
     body = db.Column(db.String(500), nullable=False)
     place = db.Column(db.String(100), nullable=False)
-=======
-    due_date = db.Column(db.DateTime, nullable=False)
->>>>>>> e9ae67c (update)
 
     def __repr__(self):
         return f'<Intern {self.title}>'
@@ -64,17 +56,13 @@ with app.app_context():
 @app.route('/')
 def index():
     tasks = Task.query.all()  # タスクをすべて取得
-<<<<<<< HEAD
     interviews = Interview.query.all()
     meetings = Meeting.query.all()
-=======
->>>>>>> e9ae67c (update)
     interns = Intern.query.all()  # インターンをすべて取得
     combined = []
 
     # タスクの情報を追加
     for task in tasks:
-<<<<<<< HEAD
         combined.append((task.title, task.end_date, 'task',task.id))  # タスクの情報をタプルとして追加
 
     for interview in interviews:
@@ -87,13 +75,6 @@ def index():
     for intern in interns:
 
         combined.append((intern.title, intern.end_date, 'intern',intern.id))  # インターンの情報をタプルとして追加
-=======
-        combined.append((task.title, task.due_date, 'task',task.id))  # タスクの情報をタプルとして追加
-
-    # インターンの情報を追加
-    for intern in interns:
-        combined.append((intern.title, intern.due_date, 'intern',intern.id))  # インターンの情報をタプルとして追加
->>>>>>> e9ae67c (update)
 
     # 日付でソート（タスクの締切日とインターンの開始日を比較）
     combined.sort(key=lambda x: (x[1] is None, x[1]))  # Noneを最後にし、日付でソート
@@ -105,10 +86,7 @@ def show_task(id):
     type = request.args.get('type')
 
     # idのタスクだけ取る
-<<<<<<< HEAD
 
-=======
->>>>>>> e9ae67c (update)
     #tasks = Task.query.order_by(Task.due_date).all()
     task = Task.query.get(id)
     #if type == 'task':
@@ -117,15 +95,12 @@ def show_task(id):
     #elif type == 'intern':
     #    task = Intern.query.get(id)
     #    return render_template('intern_popup.html', task=task)
-<<<<<<< HEAD
 
     #tasks = Task.query.order_by(Task.end_date).all() 
     
     task = Task.query.get(id)  # 個別にとる
     
 
-=======
->>>>>>> e9ae67c (update)
     # show page
     return render_template('task_popup.html', task=task)
 
@@ -151,18 +126,12 @@ def task_edit(id):
 
 @app.route('/intern/<id>/edit')  #internの編集
 def intern_edit(id):
-<<<<<<< HEAD
     intern = Intern.query.get(id)
     return render_template('intern_edit.html', intern=intern)
-=======
-    task = Intern.query.get(id)
-    return render_template('intern_edit.html', task=task)
->>>>>>> e9ae67c (update)
 
 @app.route('/add_task', methods=['POST'])
 def add_task():
     title = request.form['title']
-<<<<<<< HEAD
     start_date = datetime.fromisoformat(request.form['start_date'])
     end_date = datetime.fromisoformat(request.form['end_date'])
     body = request.form['body']
@@ -191,17 +160,12 @@ def add_meeting():
     body = request.form['body']
     place = request.form['place']
     new_task = Task(title=title, start_date=start_date, end_date=end_date, body=body, place=place)
-=======
-    due_date = datetime.fromisoformat(request.form['due_date'])
-    new_task = Task(title=title, due_date=due_date)
->>>>>>> e9ae67c (update)
     db.session.add(new_task)
     db.session.commit()
     return redirect('/')
 
 @app.route('/add_intern', methods=['POST'])
 def add_intern():
-<<<<<<< HEAD
     title = request.form.get('title')
     start_date = request.form.get('start_date')
     end_date = request.form.get('end_date')
@@ -211,11 +175,6 @@ def add_intern():
     start_date = datetime.fromisoformat(start_date)
     end_date = datetime.fromisoformat(end_date)
     new_intern = Intern(title=title, start_date=start_date, end_date=end_date, body=body, place=place)
-=======
-    title = request.form['title']
-    due_date = datetime.fromisoformat(request.form['due_date'])
-    new_intern = Task(title=title, due_date=due_date)
->>>>>>> e9ae67c (update)
     db.session.add(new_intern)
     db.session.commit()
     return redirect('/')
@@ -229,7 +188,6 @@ def delete_task(task_id):
         return redirect('/')
     return 'Task not found', 404 
 
-<<<<<<< HEAD
 @app.route('/delete/interview/<int:interview_id>',methods=['POST'])
 def delete_interview(interview_id):
     interview = Interview.query.get(interview_id)
@@ -248,8 +206,6 @@ def delete_meeting(meeting_id):
         return redirect('/')
     return 'Meeting not found', 404
 
-=======
->>>>>>> e9ae67c (update)
 @app.route('/delete/intern/<int:intern_id>',methods=['POST'])
 def delete_intern(intern_id):
     intern = Intern.query.get(intern_id)
