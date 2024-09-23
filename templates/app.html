@@ -61,7 +61,7 @@
                     <input type="datetime-local" name="start_date" required>
                     <input type="datetime-local" name="end_date" required>
                     <input type="text" name="body" placeholder="メモ" required>
-                    <!-- <input type="text" name="place" placeholder="場所" required> -->
+                    <input type="text" name="place" placeholder="場所" required>
                     <div class="form-detail-button">
                         <button type="button" class="back-button">戻る</button>
                         <button type="submit">追加</button>
@@ -76,7 +76,7 @@
                     <input type="datetime-local" name="start_date" required>
                     <input type="datetime-local" name="end_date" required>
                     <input type="text" name="body" placeholder="メモ" required>
-                    <!-- <input type="text" name="place" placeholder="場所" required> -->
+                    <input type="text" name="place" placeholder="場所" required>
                     <div class="form-detail-button">
                         <button type="button" class="back-button">戻る</button>
                         <button type="submit">追加</button>
@@ -148,7 +148,6 @@
         const meetingForm = document.getElementById('meeting-form');
         const internForm = document.getElementById('intern-form');
 
-        // 全てのフォームを一旦隠す関数
         function hideAllForms() {
             esForm.style.display = 'none';
             interviewForm.style.display = 'none';
@@ -156,16 +155,14 @@
             internForm.style.display = 'none';
         }
 
-        // ボタンボックスのクリックイベント
         buttonBox.addEventListener('click', (event) => {
             if (event.target.tagName === 'BUTTON') {
                 const taskType = event.target.textContent;
 
-                taskInput.style.display = 'block'; // タスク入力画面を表示
-                mainForm.style.display = 'none'; // メインフォームを隠す
-                hideAllForms(); // 全てのフォームを一旦隠す
+                taskInput.style.display = 'block';
+                mainForm.style.display = 'none';
+                hideAllForms();
 
-                // クリックされたボタンに応じてフォームを表示
                 if (taskType === 'ES') {
                     esForm.style.display = 'block';
                 } else if (taskType === '面接') {
@@ -178,14 +175,57 @@
             }
         });
 
-        // 戻るボタンのクリックイベント
         document.querySelectorAll('.back-button').forEach(button => {
             button.addEventListener('click', () => {
-                taskInput.style.display = 'none'; // タスク入力画面を隠す
-                mainForm.style.display = 'block'; // メインフォームを再表示
-                hideAllForms(); // 全てのフォームを再度隠す
+                taskInput.style.display = 'none';
+                mainForm.style.display = 'block';
+                hideAllForms();
             });
         });
+
+        // 締切が3日以内のタスクを赤くする処理
+        document.addEventListener('DOMContentLoaded', () => {
+            const tasks = document.querySelectorAll('.tasks');
+
+            tasks.forEach(task => {
+                const deadlineElement = task.querySelector('.task-datetime');
+                const deadlineText = deadlineElement.textContent.replace('締切: ', ''); // "締切"を除去
+                const deadlineDate = new Date(deadlineText);
+
+                const currentDate = new Date();
+                const timeDifference = deadlineDate - currentDate;
+                const daysRemaining = timeDifference / (1000 * 60 * 60 * 24); // ミリ秒から日に変換
+
+                if (daysRemaining <= 3 && daysRemaining >= 0) {
+                    task.classList.add('urgent');
+                }
+            });
+        });
+        document.addEventListener('DOMContentLoaded', function () {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const tasks = document.querySelectorAll('.tasks');  // 'task' → 'tasks'
+
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    const filterType = this.getAttribute('data-filter');
+
+                    tasks.forEach(task => {
+                        const taskType = task.getAttribute('data-type');
+
+                        // 全て表示ボタンが押された場合
+                        if (filterType === 'all') {
+                            task.style.display = 'block';
+                        } else if (taskType === filterType) {
+                            task.style.display = 'block';  // 絞り込まれたタスクを表示
+                        } else {
+                            task.style.display = 'none';   // 絞り込まれなかったタスクを非表示
+                        }
+                    });
+                });
+            });
+        });
+
+
     </script>
 </body>
 

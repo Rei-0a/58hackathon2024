@@ -16,6 +16,11 @@
         .memo {
         padding:2em; /* 内側余白 */
         border:dashed 2px #b3ada4; /* 線の種類・太さ・色 */
+
+        #map {
+            height: 400px; /* マップの高さ /
+            width: 100%; / マップの幅 */
+        }
     }
 
     </style>
@@ -40,18 +45,44 @@
         <span class="material-icons">schedule</span>
         <time>{{task.start_date}}~{{task.end_date}}</time>
     </p>
-    
-    <p>
-        <span class="material-icons">place</span> 
-        {{task.place}}
-    </p>
-
 
     <h4>メモ</h4>
 
     <div class="memo">
         {{task.body}}
     </div> 
+
+
+    <p></p>
+        <span class="material-icons">place</span> 
+        {{task.place}}
+    </p>
+
+    
+    <div id="map"></div>
+        <script>
+            function initMap() {
+                var placeName = "{{ task.place }}"; // Flaskからの場所名
+
+                // Geocoding APIを使用して場所名から座標を取得
+                var geocoder = new google.maps.Geocoder();
+                geocoder.geocode({ 'address': placeName }, function(results, status) {
+                    console.log(results); // デバッグ用
+                    if (status === 'OK') {
+                        var map = new google.maps.Map(document.getElementById('map'), {
+                            zoom: 15,
+                            center: results[0].geometry.location
+                        });
+                        var marker = new google.maps.Marker({
+                            position: results[0].geometry.location,
+                            map: map
+                        });
+                    } 
+                });
+            }
+        </script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCrDUyDjo9b7wtk_8EM4wk9gnXc_WaSWUQ&callback=initMap" async defer></script>
+
 
 
     <!--<button onclick="location.href='edit.html'">編集</button> -->

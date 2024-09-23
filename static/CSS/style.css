@@ -274,3 +274,7 @@ li {
     background-color: #2E7D32;
     /* クリック時の色 */
 }
+.urgent {
+    background-color: red;
+    color: white;
+  }
