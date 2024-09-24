@@ -21,12 +21,14 @@ body {
 
 header {
     display: flex;
+    position: fixed;
     justify-content: space-around;
     align-items: center;
     background-color: #28A6A5;
     color: white;
     padding: 10px 0;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    width: 100%;
 }
 
 nav {
@@ -77,7 +79,7 @@ nav {
 .new-form-container {
     width: 40%;
     position: fixed;
-    margin: 10px 0 10px 20px;
+    margin: 80px 0 10px 20px;
 }
 
 .button-box {
@@ -274,7 +276,8 @@ li {
     background-color: #2E7D32;
     /* クリック時の色 */
 }
+
 .urgent {
     background-color: red;
     color: white;
-  }
+}

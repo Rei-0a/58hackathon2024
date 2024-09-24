@@ -17,9 +17,9 @@
         <nav>
             <div class="filter-buttons">
                 <button class="filter-btn" data-filter="all">すべて</button>
-                <button class="filter-btn" data-filter="es">ES</button>
+                <button class="filter-btn" data-filter="task">ES</button>
                 <button class="filter-btn" data-filter="interview">面接</button>
-                <button class="filter-btn" data-filter="briefing">説明会</button>
+                <button class="filter-btn" data-filter="meeting">説明会</button>
                 <button class="filter-btn" data-filter="intern">インターン</button>
             </div>
         </nav>
@@ -106,14 +106,14 @@
             <h2>タスク一覧</h2>
             <ul>
                 {% for item in combined %}
-                <li class="tasks">
+                <li class="tasks" data-type="{{ item[2] }}">
                     <div class="task-datetime">締切: {{ item[1] }}</div>
                     <div class="task-title">
                         <input type="checkbox" name="task_completed" id="task_{{ item[3] }}">
                         {% if item[2] == 'task' %}
                         <a href="/tasks/{{item[3]}}">ES: {{ item[0] }}</a>
                         <form method='POST' action="/delete/task/{{ item[3] }}">
-                            <button type="submit" >Delete</button>
+                            <button type="submit">Delete</button>
                         </form>
                         {% elif item[2] == 'interview' %}
                         <a href="/interview/{{item[3]}}">面接: {{ item[0] }}</a>
@@ -203,28 +203,27 @@
         });
         document.addEventListener('DOMContentLoaded', function () {
             const filterButtons = document.querySelectorAll('.filter-btn');
-            const tasks = document.querySelectorAll('.tasks');  // 'task' → 'tasks'
+            const tasks = document.querySelectorAll('.tasks');  // タスク要素を取得
 
             filterButtons.forEach(button => {
                 button.addEventListener('click', function () {
-                    const filterType = this.getAttribute('data-filter');
+                    const filterType = this.getAttribute('data-filter'); // ボタンの data-filter 属性を取得
 
                     tasks.forEach(task => {
-                        const taskType = task.getAttribute('data-type');
+                        const taskType = task.getAttribute('data-type'); // タスク要素の data-type を取得
 
-                        // 全て表示ボタンが押された場合
+                        // "all" ボタンが押された場合、すべてのタスクを表示
                         if (filterType === 'all') {
                             task.style.display = 'block';
                         } else if (taskType === filterType) {
-                            task.style.display = 'block';  // 絞り込まれたタスクを表示
+                            task.style.display = 'block';  // フィルターに該当するタスクを表示
                         } else {
-                            task.style.display = 'none';   // 絞り込まれなかったタスクを非表示
+                            task.style.display = 'none';   // フィルターに該当しないタスクを非表示
                         }
                     });
                 });
             });
         });
-
 
     </script>
 </body>
