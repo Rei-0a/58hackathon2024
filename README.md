@@ -30,6 +30,6 @@ Python
 ### フレームワーク
 flask
 ### DB
-sqlite
+SQLite
 ### その他
 Google Map API
