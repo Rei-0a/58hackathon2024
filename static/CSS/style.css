@@ -241,16 +241,25 @@ li {
 }
 
 @media screen and (max-width: 768px) {
+    body {
+        font-size: 16px;
+    }
+
     header {
         position: relative;
         flex-direction: row;
         padding: 5px;
-        font-size: 0.8em;
+        font-size: 0.5rem;
+        width: 100%;
+    }
+
+    header h1 {
+        padding-right: 5px;
     }
 
     .filter-btn {
-        padding: 8px 12px;
-        font-size: 0.8em;
+        padding: 3px;
+        font-size: 0.5rem;
     }
 
     .container {
@@ -285,7 +294,7 @@ li {
 
     .button-box button {
         padding: 8px;
-        font-size: 0.8em;
+        font-size: 0.8rem;
     }
 
     .tasks {
