@@ -39,7 +39,6 @@ nav {
 .filter-buttons {
     display: flex;
     gap: 10px;
-    /* ボタン間の間隔 */
 }
 
 .filter-btn {
@@ -48,17 +47,13 @@ nav {
     border: none;
     border-left: 3px solid gray;
     padding: 10px 15px;
-    /* パディングを追加 */
     cursor: pointer;
     transition: background-color 0.3s, transform 0.2s;
-    /* ホバー時のエフェクト */
 }
 
 .filter-btn:hover {
     background-color: #197d7d;
-    /* ホバー時の色 */
     transform: scale(1.05);
-    /* ホバー時に少し大きくなる */
 }
 
 .container {
@@ -103,7 +98,6 @@ nav {
 
 .button-box button:hover {
     background-color: grey;
-    /* ホバー時の色 */
 }
 
 .task-box {
@@ -127,7 +121,6 @@ li {
 .tasks {
     width: 100%;
     background-color: white;
-    /* 背景色 */
     padding: 10px;
     margin-left: 10px;
     border-radius: 5px;
@@ -161,73 +154,49 @@ li {
 }
 
 
-/* タスク入力画面スタイル */
 #task-input {
     background-color: #f9f9f9;
-    /* 背景色 */
     border: 1px solid #ccc;
-    /* ボーダー */
     border-radius: 10px;
-    /* 角の丸み */
     padding: 20px;
-    /* パディング */
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    /* シャドウ */
 }
 
 #task-input h2 {
     margin-bottom: 15px;
-    /* タイトルの下に余白 */
     font-size: 24px;
-    /* フォントサイズ */
     color: #333;
-    /* フォントカラー */
 }
 
 #task-input form {
     display: flex;
     flex-direction: column;
-    /* 縦方向に配置 */
 }
 
 #task-input input[type="text"],
 #task-input input[type="datetime-local"],
 #task-input input[type="radio"] {
     margin-bottom: 10px;
-    /* 各入力フィールドの下に余白 */
     padding: 10px;
-    /* パディング */
     border: 1px solid #ccc;
-    /* ボーダー */
     border-radius: 5px;
-    /* 角の丸み */
     font-size: 16px;
-    /* フォントサイズ */
 }
 
 #task-input input[type="radio"] {
     margin-right: 5px;
-    /* ラジオボタンの右に余白 */
 }
 
 #task-input button[type="submit"],
 #task-input button[type="button"] {
     padding: 10px;
-    /* パディング */
     background-color: #4CAF50;
-    /* ボタンの背景色 */
     color: white;
-    /* ボタンのテキストカラー */
     border: none;
-    /* ボーダーを無し */
     border-radius: 5px;
-    /* 角の丸み */
     cursor: pointer;
-    /* カーソルをポインターに */
     font-size: 16px;
-    /* フォントサイズ */
     transition: background-color 0.3s;
-    /* ホバーエフェクト用のトランジション */
 }
 
 #task-input button[type="submit"]:hover,
@@ -239,32 +208,21 @@ li {
 .form-detail-button {
     display: flex;
     justify-content: space-between;
-    /* ボタン同士の間にスペース */
     align-items: center;
     width: 100%;
-    /* ボタンの幅を親要素に基づく */
     max-width: 500px;
-    /* 必要に応じて最大幅を制限 */
     margin: 20px auto;
-    /* 上下に少し余白を追加し、中央に配置 */
 }
 
 .form-detail-button button {
     width: 48%;
-    /* 2つのボタンがほぼ半々になるように */
     padding: 10px;
-    /* ボタン内の余白を調整 */
     background-color: #4CAF50;
-    /* 背景色をいい感じに調整 */
     color: white;
-    /* テキストの色を白に */
     border: none;
-    /* ボーダーを消す */
     border-radius: 5px;
-    /* 角を少し丸める */
     cursor: pointer;
     transition: background-color 0.3s ease;
-    /* 背景色の変化にアニメーションを追加 */
 }
 
 .form-detail-button button:hover {
@@ -280,4 +238,79 @@ li {
 .urgent {
     background-color: red;
     color: white;
+}
+
+@media screen and (max-width: 768px) {
+    header {
+        position: relative;
+        flex-direction: row;
+        padding: 5px;
+        font-size: 0.8em;
+    }
+
+    .filter-btn {
+        padding: 8px 12px;
+        font-size: 0.8em;
+    }
+
+    .container {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 5px;
+    }
+
+    .form-container h2 {
+        margin-left: 10px;
+    }
+
+    .form-container,
+    .task-box {
+        width: 100%;
+        margin: 5px 0;
+        position: static;
+    }
+
+    .new-form-container {
+        width: 100%;
+        margin: 5px 0;
+        position: static;
+    }
+
+    .button-box {
+        height: auto;
+        margin: 0px 0;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 5px;
+    }
+
+    .button-box button {
+        padding: 8px;
+        font-size: 0.8em;
+    }
+
+    .tasks {
+        padding: 5px;
+        margin-left: 5px;
+    }
+
+    .task-title {
+        font-size: 14px;
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .task-datetime {
+        font-size: 12px;
+    }
+
+    #task-input h2 {
+        font-size: 20px;
+    }
+
+    #task-input input[type="text"],
+    #task-input input[type="datetime-local"],
+    #task-input button[type="submit"],
+    #task-input button[type="button"] {
+        font-size: 14px;
+    }
 }
