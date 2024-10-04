@@ -1,45 +1,19 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-    
 
+<head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>予定の詳細</title>
-
-    <style>
-        .entry-content {
-        border-top: 2px double #333;
-        border-bottom: 2px double #333;
-        padding: 0.5em 0;
-        }
-        
-        .memo {
-        padding:2em; /* 内側余白 */
-        border:dashed 2px #b3ada4; /* 線の種類・太さ・色 */
-
-        #map {
-            height: 400px; /* マップの高さ /
-            width: 100%; / マップの幅 */
-        }
-    }
-
-    </style>
-
-    
-
+    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/popup.css') }}">
     <!--アイコン表示-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
-    
-    
 </head>
-
 
 <body>
 
     <div class="entry-content">
         <h2>{{task.title}}</h2>
-    </div>      
+    </div>
 
     <p>
         <span class="material-icons">schedule</span>
@@ -50,49 +24,51 @@
 
     <div class="memo">
         {{task.body}}
-    </div> 
+    </div>
 
 
     <p></p>
-        <span class="material-icons">place</span> 
-        {{task.place}}
+    <span class="material-icons">place</span>
+    {{task.place}}
     </p>
 
-    
-    <div id="map"></div>
-        <script>
-            function initMap() {
-                var placeName = "{{ task.place }}"; // Flaskからの場所名
 
-                // Geocoding APIを使用して場所名から座標を取得
-                var geocoder = new google.maps.Geocoder();
-                geocoder.geocode({ 'address': placeName }, function(results, status) {
-                    console.log(results); // デバッグ用
-                    if (status === 'OK') {
-                        var map = new google.maps.Map(document.getElementById('map'), {
-                            zoom: 15,
-                            center: results[0].geometry.location
-                        });
-                        var marker = new google.maps.Marker({
-                            position: results[0].geometry.location,
-                            map: map
-                        });
-                    } 
-                });
-            }
-        </script>
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCrDUyDjo9b7wtk_8EM4wk9gnXc_WaSWUQ&callback=initMap" async defer></script>
+    <div id="map"></div>
+    <script>
+        function initMap() {
+            var placeName = "{{ task.place }}"; // Flaskからの場所名
+
+            // Geocoding APIを使用して場所名から座標を取得
+            var geocoder = new google.maps.Geocoder();
+            geocoder.geocode({ 'address': placeName }, function (results, status) {
+                console.log(results); // デバッグ用
+                if (status === 'OK') {
+                    var map = new google.maps.Map(document.getElementById('map'), {
+                        zoom: 15,
+                        center: results[0].geometry.location
+                    });
+                    var marker = new google.maps.Marker({
+                        position: results[0].geometry.location,
+                        map: map
+                    });
+                }
+            });
+        }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCrDUyDjo9b7wtk_8EM4wk9gnXc_WaSWUQ&callback=initMap"
+        async defer></script>
 
 
 
     <!--<button onclick="location.href='edit.html'">編集</button> -->
 
     <!-- ボタンを押すと、/nextpageに飛ぶ -->
-    <a href="/intern/{{task.id}}/edit" method="get">
+    <a href="/intern/{{task.id}}/edit" method="get" class="edit">
         Edit
     </a>
 
-    <a href="/">Back</a>
+    <a href="/" class="back">Back</a>
 
 </body>
+
 </html>

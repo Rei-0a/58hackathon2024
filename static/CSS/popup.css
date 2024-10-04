@@ -1,0 +1,52 @@
+.entry-content {
+    border-top: 2px double #333;
+    border-bottom: 2px double #333;
+    padding: 0.5em 0;
+}
+
+.memo {
+    padding: 2em;   /* 内側余白 */
+    border: dashed 2px #b3ada4;     /* 線の種類・太さ・色 */
+}
+
+#map {
+    height: 400px;  /* マップの高さ */
+    width: 100%; /* マップの幅 */
+}
+/* ボタンの基本スタイル */
+.edit{
+    text-decoration: none;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 12px 24px;
+    border-radius: 8px;
+    background-color: #3498db; /* 鮮やかなブルー */
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    display: inline-block;
+    margin-top: 5px;
+}
+/* ホバー時のスタイル */
+.edit:hover {
+    background-color: #2980b9; /* 濃いブルー */
+    transform: scale(1.05); /* 拡大効果 */
+}
+
+/* Backリンク用 */
+.back{
+        text-decoration: none;
+        color: white;
+        font-size: 16px;
+        font-weight: bold;
+        padding: 12px 24px;
+        border-radius: 8px;
+        background-color: #2ecc71; /* グリーン */
+        transition: background-color 0.3s ease, transform 0.3s ease;
+        display: inline-block;
+        margin-top: 5px;
+}
+
+.back[href="/"]:hover {
+    background-color: #27ae60; /* 濃いグリーン */
+    transform: scale(1.05); /* 拡大効果 */
+}
