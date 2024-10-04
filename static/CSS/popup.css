@@ -1,0 +1,15 @@
+.entry-content {
+    border-top: 2px double #333;
+    border-bottom: 2px double #333;
+    padding: 0.5em 0;
+}
+
+.memo {
+    padding: 2em;   /* 内側余白 */
+    border: dashed 2px #b3ada4;     /* 線の種類・太さ・色 */
+}
+
+#map {
+    height: 400px;  /* マップの高さ */
+    width: 100%; /* マップの幅 */
+}
